@@ -67,43 +67,72 @@ root.title("VqApp")
 
 
 #frame
-# frame1 = tkinter.Frame(root, borderwidth=5)
-# #frame1.place(x=510, y=10)
-# frame1.pack()
-# frame1.config(background='black')
+frame1 = tkinter.Frame(root, heigh=400, bd=2)
+frame1.place(x=40, y=350)
+frame1.config(background='white')
 
 
 #labels
-l = tkinter.Label(root, text='Aplication', font=('Raleway',20), fg='white')     #create label
+l = tkinter.Label(root,
+   text='Aplication',
+   font=('Raleway',20),
+   fg='white')
 l.pack()
 l.config(background='#8E8BFF')
 
-l2 = tkinter.Label(root, text='list of added photos paths',
-                   font=('Raleway', 15), fg='white')
+l2 = tkinter.Label(root,
+   text='list of added photos paths',
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
 l2.place(x=40,y=60)
 l2.config(background='#8E8BFF')
 
 
 #buttons
 button_add_picture_text = tkinter.StringVar()
-button_add_picture = tkinter.Button(
-    root,textvariable=button_add_picture_text, bg='#7673F3',
-    font=('Raleway', 12, 'bold'), fg='white',
-    width=12, heigh=2, command=add_picture_path)
+button_add_picture = tkinter.Button(root,
+    textvariable=button_add_picture_text,
+    bg='#7673F3',
+    font=('Raleway', 12, 'bold'),
+    fg='white',
+    width=12, heigh=2,
+    command=add_picture_path)
 button_add_picture.place(x=40, y=260)
 button_add_picture_text.set('ADD PICTURE')
 
-b1 = tkinter.Button(root, text='konsola', command=click_button)
-b1.pack()
+b1 = tkinter.Button(frame1,
+    text='EXIT',
+    bg='#7673F3',
+    font=('Raleway', 12, 'bold'),
+    fg='white',
+    width=12, heigh=2,
+    command=click_button)
+b1.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
-b2 = tkinter.Button(root, text='guzik', command=click_button)
-b1.pack(side=tkinter.RIGHT)
+b2 = tkinter.Button(frame1,
+    text='ex1',
+    bg='#7673F3',
+    font=('Raleway', 12, 'bold'),
+    fg='white',
+    width=12, heigh=2,
+    command=click_button)
+b2.pack(side=tkinter.BOTTOM, pady=5, padx=5)
+
+b3 = tkinter.Button(frame1,
+    text='ex3',
+    bg='#7673F3',
+    font=('Raleway', 12, 'bold'),
+    fg='white',
+    width=12, heigh=2,
+    command=click_button)
+b3.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 
 #listbox
 listbox = tkinter.Listbox(
     root,height=9,width = 30,
-    selectmode='extended')
+    selectmode='extended',fg='purple')
 
 listbox.place(x=40, y=90)
 listbox.insert(0,'paths...')
