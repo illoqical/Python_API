@@ -1,12 +1,12 @@
 import cv2 as cv
+import cv2
 import numpy as np
-import sys
 from matplotlib import pyplot as plt
 
 #img = cv.imread(cv.samples.findFile("lenna.png"),)
 #img = cv.imread(cv.samples.findFile("pawian.jpg"))
 
-cv2 = cv
+
 
 
 def original_img(img):

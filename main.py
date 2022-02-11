@@ -1,12 +1,12 @@
 
-import numpy as np
-import sys
-from matplotlib import pyplot as plt
+
+
 from func import *
 import tkinter
 from tkinter import filedialog, Text
 import cv2
-import os
+import numpy
+
 
 #test images
 img = cv2.imread(cv.samples.findFile("pawian.jpg"))
