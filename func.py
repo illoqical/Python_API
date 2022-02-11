@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 
 cv2 = cv
 
+
 def original_img(img):
     cv2.imshow('image',img)
     cv2.waitKey(0)
