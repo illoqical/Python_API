@@ -28,8 +28,8 @@ def grey_img(img):
 
 
 
-def scaleup_img(img):
-    img_su = cv2.resize(img, None, fx=2, fy=2)
+def scaleup_img(img,f_x):
+    img_su = cv2.resize(img, None, fx=f_x, fy=2)
     cv2.imshow('scale up', img)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zwiększenie_skali.png', img)

@@ -9,7 +9,7 @@ import numpy
 
 
 #test images
-img = cv2.imread(cv.samples.findFile("pawian.jpg"))
+#img = cv2.imread(cv.samples.findFile("pawian.jpg"))
 #img = cv.imread(cv.samples.findFile("lenna.png"),)
 #img2 = cv.imread(cv.samples.findFile("pawian.jpg"))
 
@@ -46,6 +46,10 @@ def click_button():
     print('wcisnieto przycisk')
     print(list(tab))
 
+def click_button2():
+    print('wcisnieto przycisk')
+    print(list(tab))
+    l3.place_forget()
 
 def add_picture_path():
     button_add_picture_text.set('loading...')
@@ -62,6 +66,22 @@ def select_fun(img):
         if current_value.get() == fun:
             fun(img[1])
     print(current_value.get())
+
+def entry():
+    print('abs')
+
+def grab():
+    #l3.config(text = spin_box.get())
+    #return spin_box.get()
+    if 'scale up' == spin_box.get():
+        l3.pack()
+        get_option.pack(pady=20)
+
+    else:
+        l3.pack_forget()
+        get_option.pack_forget()
+
+
 
 
 #API START HERE
@@ -100,8 +120,10 @@ spin_box = tkinter.Spinbox(
     to=len(my_functions),
     values=my_functions,
     textvariable=current_value,
-    wrap=False,)
+    wrap=False,
+    command = grab )
     #command=select_fun(filepath))
+
 spin_box.pack()
 
 
@@ -114,6 +136,15 @@ l2 = tkinter.Label(root,
    fg='white')
 l2.place(x=40,y=60)
 l2.config(background='#8E8BFF')
+
+l3 = tkinter.Label(root,
+   text='Set resize prop.',
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l3.config(background='#8E8BFF')
+
 
 
 #buttons
@@ -152,7 +183,7 @@ b3 = tkinter.Button(frame1,
     font=('Raleway', 12, 'bold'),
     fg='white',
     width=12, heigh=2,
-    command=click_button)
+    command=click_button2)
 b3.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 
@@ -164,6 +195,9 @@ listbox = tkinter.Listbox(
 listbox.place(x=40, y=90)
 listbox.insert(0,'paths...')
 
+#entry
+username = tkinter.StringVar()
+get_option = tkinter.Entry(root, textvariable=username,)
 
 
 root.mainloop()
