@@ -22,13 +22,23 @@ funtab = []
 funtab = [grey_img,gauss_img, original_img]
 listbox_clear = True
 print(type(funtab))
+funfuntab = { 'orginal': original_img , 'invert' : inverted_img , 'grey': grey_img, 'scale up' :scaleup_img, 'scale down': scaledown_img}
 
 #Functions
+
+
 def Picture(img, choice):
 
     for fun in funtab:
         if choice == fun:
             fun(img)
+
+def Picture2(img, choice):
+
+    for fun in funfuntab.keys():
+        if choice == fun:
+            funfuntab[fun](img)
+
 
 
 def add_path_list(add):
@@ -81,6 +91,8 @@ def grab():
         l3.pack_forget()
         get_option.pack_forget()
 
+def main_prog():
+    Picture2(tab[0],spin_box.get())
 
 
 
@@ -165,7 +177,7 @@ b1 = tkinter.Button(frame1,
     font=('Raleway', 12, 'bold'),
     fg='white',
     width=12, heigh=2,
-    command=click_button)
+    command=main_prog)
 b1.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b2 = tkinter.Button(frame1,
