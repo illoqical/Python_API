@@ -59,13 +59,25 @@ def click_button():
     print('wcisnieto przycisk')
     print(list(tab))
 
+def find_name():
+    my_path = listbox.get(ANCHOR)
+    num = my_path.find('.')
+    napis = ""
+    for k in range(num-1, (len(my_path)-num), -1):
+        if my_path[k] == "/":
+            break
+        napis = napis + my_path[k]
+
+    reversed = napis[len(napis)::-1]
+    return reversed
+
 
 def save_to_file():
     path_to_save = filedialog.askdirectory(title = "Select Directory")
     print(path_to_save)
     print(type(to_save))
     cv2.imshow('save picture below',to_save)
-    path_to_save2 = path_to_save+'/'+ spin_box.get() +'.png'
+    path_to_save2 = path_to_save+'/'+ find_name() +'_'+spin_box.get() +'.png'
     print(path_to_save2)
     cv2.imwrite(path_to_save2, to_save)
 
@@ -252,12 +264,13 @@ b1 = tkinter.Button(frame1,
 b1.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b2 = tkinter.Button(frame1,
-    text='GO',
+    text='Find',
     bg='#7673F3',
     font=('Raleway', 12, 'bold'),
     fg='white',
     width=12, heigh=2,
-    command=select_fun(tab))
+    # command=select_fun(tab))
+    command=find_name)
 b2.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b3 = tkinter.Button(frame1,
