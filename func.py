@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 #img = cv.imread(cv.samples.findFile("pawian.jpg"))
 
 
-
+print('test github')
 
 def original_img(img):
     cv2.imshow('image',img)

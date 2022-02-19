@@ -302,6 +302,7 @@ get_option2 = tkinter.Entry(root, textvariable=username2,)
 
 pp = listbox.get(ANCHOR)
 print(pp)
+print('test github')
 
 root.mainloop()
 
