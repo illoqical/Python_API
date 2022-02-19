@@ -17,7 +17,6 @@ import numpy
 
 
 #Values
-
 scale= 1
 filepath = ''
 tab= []
@@ -25,33 +24,25 @@ funtab = []
 funtab = [grey_img,gauss_img, original_img]
 listbox_clear = True
 print(type(funtab))
-funfuntab = { 'orginal': original_img , 'invert' : inverted_img , 'grey': grey_img, 'scale up' :scaleup_img, 'scale down': scaledown_img}
+funfuntab = { 'orginal': original_img , 'invert' : inverted_img,
+              'grey': grey_img, 'scale_up' :scaleup_img,
+              'scale_down': scaledown_img, 'gauss': gauss_img,
+              'sepia': sepia_img, 'convert':convert_img, 'brigthness':brightnesschange_img}
+
+my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'scale_down','gauss',
+                'sepia', 'convert', 'brigthness')
 
 #Functions
-
-
-def Picture(img, choice):
-
-    for fun in funtab:
-        if choice == fun:
-            fun(img)
-
 def Picture2(img, choice):
     global to_save
     for fun in funfuntab.keys():
         if choice == fun:
-            if choice == 'scale up':
+            if choice == 'scale_up' or choice == 'scale_down':
                 scale_x = get_option.get()
                 scale_y = get_option2.get()
-                print('scale')
-                print(scale_x  , scale_y)
-
                 funfuntab[fun](img,scale_x,scale_y)
-
             else:
                 to_save = funfuntab[fun](img)
-
-
 
 
 def add_path_list(add):
@@ -63,24 +54,21 @@ def add_path_list(add):
         listbox_clear = False
     listbox.insert(0, text)
 
-def add_path_to_save():
-    path_to_save = filedialog.askopenfilename( initialdir = "/", title = "Select File",
-                                           filetypes=(("all files","*.*"),("executables",".exe")))
-
-
 
 def click_button():
     print('wcisnieto przycisk')
     print(list(tab))
+
 
 def save_to_file():
     path_to_save = filedialog.askdirectory(title = "Select Directory")
     print(path_to_save)
     print(type(to_save))
     cv2.imshow('save picture below',to_save)
-    path_to_save2 = path_to_save+'/Inverted.png'
+    path_to_save2 = path_to_save+'/'+ spin_box.get() +'.png'
     print(path_to_save2)
     cv2.imwrite(path_to_save2, to_save)
+
 
 def add_picture_path():
     l5.pack_forget()
@@ -94,6 +82,7 @@ def add_picture_path():
     click_button()
     button_add_picture_text.set('ADD PICTURE')
 
+
 def select_fun(img):
     for fun in funtab:
         if current_value.get() == fun:
@@ -103,34 +92,44 @@ def select_fun(img):
 def entry():
     print('abs')
 
-def grab():
+
+def spin_set():
     #l3.config(text = spin_box.get())
     #return spin_box.get()
-    if 'scale up' == spin_box.get():
+    if 'scale up' == spin_box.get() or 'scale down' == spin_box.get() :
         scale=0
         l3.pack()
+        if 'scale up' == spin_box.get():
+            l6.pack()
+            l6.config(text='write value from 1 to 2')
+
+        elif 'scale down' == spin_box.get():
+            l6.pack
+            l6.config(text='write value form 1 to 0.1')
+
         get_option.pack(pady=20)
-        get_option2.pack(pady=5)
-
-
+        get_option2.pack(pady=1)
     else:
         l3.pack_forget()
+        l6.pack_forget()
         get_option.pack_forget()
         get_option2.pack_forget()
+
 
 def fileSelection(self):
     selection = listbox.curselection()
     print(selection)
 
+
 def listbox_delete():
     listbox.delete(ANCHOR)
     print(tab)
+
 
 def main_prog():
     word1 = listbox.get(ANCHOR)
     print('cc')
     print(word1)
-
     if word1 == '':
         #l5.place(x=300, y=600)
         l5.pack(pady=35)
@@ -150,23 +149,19 @@ def main_prog():
 
 
 
-
-
 #API START HERE
-
 root = tkinter.Tk()  #creat window
 root.geometry('800x700') # window size
 root.resizable(width=False, height=False) #block resize
 root.config(background='#8E8BFF')
 root.title("VqApp")
 
-
 #frame
 frame1 = tkinter.Frame(root, heigh=400, bd=2)
 frame1.place(x=55, y=350)
 frame1.config(background='white')
 
-my_functions = ('orginal', 'invert', 'grey', 'scale up', 'scale down')
+
 
 #labels
 l = tkinter.Label(root,
@@ -185,14 +180,14 @@ l2.place(x=40,y=60)
 l2.config(background='#8E8BFF')
 
 l4 = tkinter.Label(root,
-   text='1. Add picture \n2. Select photo path\n3. Select option form list below \n4. Click button "GO".',
+   text='1. Add picture \n2. Select photo path'
+        '\n3. Click to select option form list \n4. Click button "GO".',
    anchor='center',
    font=('Raleway', 15),
    fg='white')
 #l3.place(x=300,y=600)
 l4.pack(pady=20)
 l4.config(background='#8E8BFF')
-
 
 l3 = tkinter.Label(root,
    text='Set resize prop.',
@@ -209,6 +204,13 @@ l5 = tkinter.Label(root,
 #l3.place(x=300,y=600)
 l5.config(background='#8E8BFF')
 
+l6 = tkinter.Label(root,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l6.config(background='#8E8BFF')
+
 
 current_value = tkinter.StringVar()
 # c = tkinter.Spinbox(root, from_=1, to=2)
@@ -221,14 +223,10 @@ spin_box = tkinter.Spinbox(
     values=my_functions,
     textvariable=current_value,
     wrap=False,
-    command = grab )
+    command = spin_set )
     #command=select_fun(filepath))
 
 spin_box.pack()
-
-
-
-
 
 
 
@@ -294,27 +292,23 @@ b5.pack(pady=10)
 listbox = tkinter.Listbox(
     root,height=9,width = 30,
     selectmode='extended',fg='purple')
-
 listbox.place(x=45, y=90)
 listbox.insert(0,'paths...')
 
+
 #entry
 username = tkinter.StringVar()
-get_option = tkinter.Entry(root, textvariable=username,)
+get_option = tkinter.Entry(root, textvariable=username,width=2)
 username2 = tkinter.StringVar()
-get_option2 = tkinter.Entry(root, textvariable=username2,)
+get_option2 = tkinter.Entry(root, textvariable=username2,width=2)
+
 
 #photos
 # pic = tkinter.PhotoImage(file = 'lenna.png')
 # pic.blank()
 
-pp = listbox.get(ANCHOR)
-print(pp)
-
 
 root.mainloop()
-
-
 
 
 # #1 Przeksztalecenia barwne

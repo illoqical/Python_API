@@ -13,7 +13,7 @@ def original_img(img):
     cv2.imshow('image',img)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Orginalne.png', img)
-
+    return img
 def inverted_img(img):
     img_i = (255-img)
     cv2.imshow('inverted', img_i)
@@ -25,29 +25,32 @@ def grey_img(img):
     img_g = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cv2.imshow('grey', img_g)
     cv2.waitKey(0)
+    return img_g
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Grey.png', img_g)
 
 
 
 def scaleup_img(img,sf_x,sf_y):
-    f_x=int(sf_x)
-    f_y=int(sf_y)
-    print(f_x,f_y)
-    img_su = cv2.resize(img, None, fx=f_x, fy=f_y)
+
+    img_su = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
     cv2.imshow('scale up', img_su)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zwiększenie_skali.png', img)
+    return img_su
 
-def scaledown_img(img):
-    img_sd1 = cv2.resize(img, None, fx=0.5, fy=0.5)
+def scaledown_img(img,sf_x,sf_y):
+    img_sd1 = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
+    print('SCALE DOWN ON LINE')
     cv2.imshow('scale down', img_sd1)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmniejszenie_skali.png', img_sd1)
+    return img_sd1
 
 def gauss_img(img):
     img_g = cv2.GaussianBlur(img, (7, 7), 0)
     cv2.imshow('gauss', img_g)
     cv2.waitKey(0)
+    return img_g
 
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/gauss.png', img_g)
 def sepia_img(img):
@@ -55,19 +58,21 @@ def sepia_img(img):
     cv2.imshow('sepia', img_s)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Sepia.png', img_s)
-
+    return img_s
 
 def convert_img(img):
     img_c = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     cv2.imshow('convert', img_c)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/HSV.png', img_c)
+    return img_c
 
 def rotate_img(img):
     img_r = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
     cv2.imshow('rotate', img_r)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Rotate_90.png', img_r)
+    return img_r
 
 def brightnesschange_img(img):
     value = 30
@@ -82,6 +87,7 @@ def brightnesschange_img(img):
     img_bc = cv2.cvtColor(img_output, cv2.COLOR_HSV2BGR)
     cv2.imshow('brightnesschange', img_bc)
     cv2.waitKey(0)
+    return img_bc
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_jasnosci.png', img_bc)
 
 def edge_img(img):
