@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 #img = cv.imread(cv.samples.findFile("pawian.jpg"))
 
 
-print('test github')
+
 
 def original_img(img):
     cv2.imshow('image',img)
@@ -18,6 +18,7 @@ def inverted_img(img):
     img_i = (255-img)
     cv2.imshow('inverted', img_i)
     cv2.waitKey(0)
+    return img_i
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Inverted.png', img_i)
 
 def grey_img(img):
@@ -30,7 +31,7 @@ def grey_img(img):
 
 def scaleup_img(img,sf_x,sf_y):
     f_x=int(sf_x)
-    f_y = int(sf_y)
+    f_y=int(sf_y)
     print(f_x,f_y)
     img_su = cv2.resize(img, None, fx=f_x, fy=f_y)
     cv2.imshow('scale up', img_su)

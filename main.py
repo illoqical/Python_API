@@ -17,7 +17,7 @@ import numpy
 
 
 #Values
-flag1 = False
+
 scale= 1
 filepath = ''
 tab= []
@@ -37,7 +37,7 @@ def Picture(img, choice):
             fun(img)
 
 def Picture2(img, choice):
-
+    global to_save
     for fun in funfuntab.keys():
         if choice == fun:
             if choice == 'scale up':
@@ -49,7 +49,7 @@ def Picture2(img, choice):
                 funfuntab[fun](img,scale_x,scale_y)
 
             else:
-                funfuntab[fun](img)
+                to_save = funfuntab[fun](img)
 
 
 
@@ -63,16 +63,24 @@ def add_path_list(add):
         listbox_clear = False
     listbox.insert(0, text)
 
+def add_path_to_save():
+    path_to_save = filedialog.askopenfilename( initialdir = "/", title = "Select File",
+                                           filetypes=(("all files","*.*"),("executables",".exe")))
+
 
 
 def click_button():
     print('wcisnieto przycisk')
     print(list(tab))
 
-def click_button2():
-    print('wcisnieto przycisk')
-    print(list(tab))
-    l3.place_forget()
+def save_to_file():
+    path_to_save = filedialog.askdirectory(title = "Select Directory")
+    print(path_to_save)
+    print(type(to_save))
+    cv2.imshow('save picture below',to_save)
+    path_to_save2 = path_to_save+'/Inverted.png'
+    print(path_to_save2)
+    cv2.imwrite(path_to_save2, to_save)
 
 def add_picture_path():
     l5.pack_forget()
@@ -255,12 +263,12 @@ b2 = tkinter.Button(frame1,
 b2.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b3 = tkinter.Button(frame1,
-    text='ex3',
+    text='save',
     bg='#7673F3',
     font=('Raleway', 12, 'bold'),
     fg='white',
     width=12, heigh=2,
-    command=click_button2)
+    command=save_to_file)
 b3.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b4 = tkinter.Button(root,
@@ -272,7 +280,7 @@ b4 = tkinter.Button(root,
     command=listbox_delete)
 b4.place(x=150, y=260)
 
-b4 = tkinter.Button(root,
+b5 = tkinter.Button(root,
     text='GO',
     bg='#7673F3',
     font=('Raleway', 12, 'bold'),
@@ -280,7 +288,7 @@ b4 = tkinter.Button(root,
     width=12, heigh=2,
     command=main_prog)
 #b4.place(x=300, y=260)
-b4.pack(pady=10)
+b5.pack(pady=10)
 
 #listbox
 listbox = tkinter.Listbox(
@@ -302,7 +310,7 @@ get_option2 = tkinter.Entry(root, textvariable=username2,)
 
 pp = listbox.get(ANCHOR)
 print(pp)
-print('test github')
+
 
 root.mainloop()
 
