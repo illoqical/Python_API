@@ -26,7 +26,7 @@ listbox_clear = True
 print(type(funtab))
 funfuntab = { 'orginal': original_img , 'invert' : inverted_img,
               'grey': grey_img, 'scale_up' :scaleup_img,
-              'scale_down': scaledown_img, 'gauss': gauss_img,
+               'gauss': gauss_img,
               'sepia': sepia_img, 'convert':convert_img, 'brigthness':brightnesschange_img}
 
 my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'scale_down','gauss',
@@ -37,11 +37,18 @@ def Picture2(img, choice):
     global to_save
     for fun in funfuntab.keys():
         if choice == fun:
-            if choice == 'scale_up' or choice == 'scale_down':
-                scale_x = get_option.get()
-                scale_y = get_option2.get()
-                funfuntab[fun](img,scale_x,scale_y)
+            if choice == 'scale_up':
+                scale_x = float(get_option.get())
+                scale_y = float(get_option2.get())
+                if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
+                    l5.pack()
+                    l5.config(text='wrong values')
+
+                else :
+                    l3.pack_forget()
+                    funfuntab[fun](img,scale_x,scale_y)
             else:
+
                 to_save = funfuntab[fun](img)
 
 
@@ -108,15 +115,15 @@ def entry():
 def spin_set():
     #l3.config(text = spin_box.get())
     #return spin_box.get()
-    if 'scale up' == spin_box.get() or 'scale down' == spin_box.get() :
+    if 'scale_up' == spin_box.get() or 'scale_down' == spin_box.get() :
         scale=0
         l3.pack()
-        if 'scale up' == spin_box.get():
+        if 'scale_up' == spin_box.get():
             l6.pack()
             l6.config(text='write value from 1 to 2')
 
-        elif 'scale down' == spin_box.get():
-            l6.pack
+        elif 'scale_down' == spin_box.get():
+            l6.pack()
             l6.config(text='write value form 1 to 0.1')
 
         get_option.pack(pady=20)
@@ -311,9 +318,9 @@ listbox.insert(0,'paths...')
 
 #entry
 username = tkinter.StringVar()
-get_option = tkinter.Entry(root, textvariable=username,width=2)
+get_option = tkinter.Entry(root, textvariable=username,width=3)
 username2 = tkinter.StringVar()
-get_option2 = tkinter.Entry(root, textvariable=username2,width=2)
+get_option2 = tkinter.Entry(root, textvariable=username2,width=3)
 
 
 #photos
