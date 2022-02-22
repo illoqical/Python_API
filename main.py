@@ -93,11 +93,18 @@ def find_name():
 def save_to_file():
     path_to_save = filedialog.askdirectory(title = "Select Directory")
     print(path_to_save)
-    print(type(to_save))
-    cv2.imshow('save picture below',to_save)
-    path_to_save2 = path_to_save+'/'+ find_name() +'_'+spin_box.get() +'.png'
-    print(path_to_save2)
-    cv2.imwrite(path_to_save2, to_save)
+
+    try:
+        #print(type(to_save))
+        cv2.imshow('save picture below', to_save)
+        path_to_save2 = path_to_save + '/' + find_name() + '_' + spin_box.get() + '.png'
+        #print(path_to_save2)
+        cv2.imwrite(path_to_save2, to_save)
+    except NameError:
+        print('First click go')
+        l5.pack()
+        l5.config(text='First filter picture !', fg='red', font='Helvetica 18 bold')
+
 
 
 def add_picture_path():
@@ -130,20 +137,16 @@ def spin_set():
         scale=0
         l3.pack()
         if 'scale_up' == spin_box.get():
-            l6.pack()
+            #l6.pack()
+            l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
             l6.config(text='write value from 1 to 2')
-            # l7.place(x=270,y=340)
-            # l7.config(text='set value: x')
-            # l8.place(x=270,y=375)
-            # l8.config(text='set value: y')
+            l7.grid(column= 0,row=1, pady= 5)
+            l7.config(text='set value x: ')
+            l8.grid(column= 0,row=2, pady= 5)
+            l8.config(text='set value y: ')
 
-        elif 'scale_down' == spin_box.get():
-            l6.pack()
-            l6.config(text='write value form 1 to 0.1')
-
-
-        get_option.pack(pady=20)
-        get_option2.pack(pady=1)
+        get_option.grid(column= 1,row=1, pady= 5)
+        get_option2.grid(column= 1,row=2, pady= 5)
     elif 'brigthness' == spin_box.get():
         l6.pack()
         l6.config(text='write value from 0 to 200')
@@ -201,7 +204,6 @@ frame1.place(x=55, y=350)
 frame1.config(background='white')
 
 
-
 #labels
 l = tkinter.Label(root,
    text='Aplication',
@@ -243,26 +245,7 @@ l5 = tkinter.Label(root,
 #l3.place(x=300,y=600)
 l5.config(background='#8E8BFF')
 
-l6 = tkinter.Label(root,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l6.config(background='#8E8BFF')
 
-l7 = tkinter.Label(root,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l7.config(background='#8E8BFF')
-
-l8 = tkinter.Label(root,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l8.config(background='#8E8BFF')
 
 current_value = tkinter.StringVar()
 # c = tkinter.Spinbox(root, from_=1, to=2)
@@ -351,11 +334,41 @@ listbox.place(x=45, y=90)
 listbox.insert(0,'paths...')
 
 
+
+#frame
+frame2 = tkinter.Frame(root, bd=2, bg= '#7673F3')
+frame2.pack(pady=5)
+# frame2.config(background='red')
+
+l6 = tkinter.Label(frame2,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l6.config(background='#8E8BFF')
+
+l7 = tkinter.Label(frame2,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l7.config(background='#8E8BFF')
+
+l8 = tkinter.Label(frame2,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l8.config(background='#8E8BFF')
+
+
 #entry
 username = tkinter.StringVar()
-get_option = tkinter.Entry(root, textvariable=username,width=3)
+get_option = tkinter.Entry(frame2, textvariable=username,width=5)
 username2 = tkinter.StringVar()
-get_option2 = tkinter.Entry(root, textvariable=username2,width=3)
+get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
+
+
 
 
 #photos
