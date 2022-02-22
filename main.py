@@ -46,7 +46,10 @@ def Picture2(img, choice):
 
                 else :
                     l3.pack_forget()
-                    funfuntab[fun](img,scale_x,scale_y)
+                    funfuntab[fun](img, scale_x, scale_y)
+            elif choice == 'brigthness':
+                brightness = int(get_option.get())
+                funfuntab[fun](img, brightness)
             else:
 
                 to_save = funfuntab[fun](img)
@@ -128,6 +131,10 @@ def spin_set():
 
         get_option.pack(pady=20)
         get_option2.pack(pady=1)
+    elif 'brigthness' == spin_box.get():
+        l6.pack()
+        l6.config(text='write value from 0 to 200')
+        get_option.pack(pady=20)
     else:
         l3.pack_forget()
         l6.pack_forget()

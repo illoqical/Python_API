@@ -75,8 +75,9 @@ def rotate_img(img):
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Rotate_90.png', img_r)
     return img_r
 
-def brightnesschange_img(img):
-    value = 30
+def brightnesschange_img(img,im_val):
+    #value = 30
+    value = im_val
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(img_hsv)
 
