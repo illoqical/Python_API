@@ -48,8 +48,16 @@ def Picture2(img, choice):
                     l3.pack_forget()
                     funfuntab[fun](img, scale_x, scale_y)
             elif choice == 'brigthness':
-                brightness = int(get_option.get())
-                funfuntab[fun](img, brightness)
+                # if int(get_option.get()) == '':
+                #     l5.pack()
+                #     l5.config(text='Empty box !')
+                try:
+                    l5.pack_forget()
+                    brightness = int(get_option.get())
+                    funfuntab[fun](img, brightness)
+                except ValueError:
+                    l5.pack()
+                    l5.config(text='Empty box !', fg='red',font='Helvetica 18 bold')
             else:
 
                 to_save = funfuntab[fun](img)
@@ -124,10 +132,15 @@ def spin_set():
         if 'scale_up' == spin_box.get():
             l6.pack()
             l6.config(text='write value from 1 to 2')
+            # l7.place(x=270,y=340)
+            # l7.config(text='set value: x')
+            # l8.place(x=270,y=375)
+            # l8.config(text='set value: y')
 
         elif 'scale_down' == spin_box.get():
             l6.pack()
             l6.config(text='write value form 1 to 0.1')
+
 
         get_option.pack(pady=20)
         get_option2.pack(pady=1)
@@ -237,6 +250,19 @@ l6 = tkinter.Label(root,
 #l3.place(x=300,y=600)
 l6.config(background='#8E8BFF')
 
+l7 = tkinter.Label(root,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l7.config(background='#8E8BFF')
+
+l8 = tkinter.Label(root,
+   anchor='center',
+   font=('Raleway', 15),
+   fg='white')
+#l3.place(x=300,y=600)
+l8.config(background='#8E8BFF')
 
 current_value = tkinter.StringVar()
 # c = tkinter.Spinbox(root, from_=1, to=2)
@@ -249,7 +275,9 @@ spin_box = tkinter.Spinbox(
     values=my_functions,
     textvariable=current_value,
     wrap=False,
-    command = spin_set )
+    command=spin_set,
+    #font=Font(family='Helvetica', size=36, weight='bold'))
+    font='Helvetica 12')
     #command=select_fun(filepath))
 
 spin_box.pack()

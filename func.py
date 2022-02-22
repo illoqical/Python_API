@@ -88,6 +88,7 @@ def brightnesschange_img(img,im_val):
     img_output = cv2.merge((h, s, v))
     img_bc = cv2.cvtColor(img_output, cv2.COLOR_HSV2BGR)
     cv2.imshow('brightnesschange', img_bc)
+    #cv2.moveWindow('brightnesschange',200,200)
     cv2.waitKey(0)
     return img_bc
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_jasnosci.png', img_bc)
