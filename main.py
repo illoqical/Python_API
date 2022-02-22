@@ -29,7 +29,7 @@ funfuntab = { 'orginal': original_img , 'invert' : inverted_img,
                'gauss': gauss_img,
               'sepia': sepia_img, 'convert':convert_img, 'brigthness':brightnesschange_img}
 
-my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'scale_down','gauss',
+my_functions = ('orginal', 'invert', 'grey', 'scale_up','gauss',
                 'sepia', 'convert', 'brigthness')
 
 #Functions
@@ -133,8 +133,9 @@ def entry():
 def spin_set():
     #l3.config(text = spin_box.get())
     #return spin_box.get()
-    if 'scale_up' == spin_box.get() or 'scale_down' == spin_box.get() :
+    if 'scale_up' == spin_box.get():
         scale=0
+        frame2.pack(pady=5)
         l3.pack()
         if 'scale_up' == spin_box.get():
             #l6.pack()
@@ -148,15 +149,20 @@ def spin_set():
         get_option.grid(column= 1,row=1, pady= 5)
         get_option2.grid(column= 1,row=2, pady= 5)
     elif 'brigthness' == spin_box.get():
-        l6.pack()
+        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
         l6.config(text='write value from 0 to 200')
-        get_option.pack(pady=20)
+        l7.grid(column=0, row=1, pady=5)
+        l7.config(text='set value : ')
+        get_option.grid(column= 1,row=1, pady= 5)
+        frame2.pack()
     else:
         l3.pack_forget()
-        l6.pack_forget()
-        get_option.pack_forget()
-        get_option2.pack_forget()
-
+        l6.grid_forget()
+        l7.grid_forget()
+        l8.grid_forget()
+        get_option.grid_forget()
+        get_option2.grid_forget()
+        frame2.pack_forget()
 
 def fileSelection(self):
     selection = listbox.curselection()
@@ -337,7 +343,7 @@ listbox.insert(0,'paths...')
 
 #frame
 frame2 = tkinter.Frame(root, bd=2, bg= '#7673F3')
-frame2.pack(pady=5)
+
 # frame2.config(background='red')
 
 l6 = tkinter.Label(frame2,
