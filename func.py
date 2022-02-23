@@ -1,11 +1,17 @@
+'''
+OpenCv functions
+
+Author: Kamil Sikora
+'''
+
+
+
 import cv2 as cv
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
 #img = cv.imread(cv.samples.findFile("lenna.png"),)
-#img = cv.imread(cv.samples.findFile("pawian.jpg"))
-
 
 
 
@@ -14,12 +20,15 @@ def original_img(img):
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Orginalne.png', img)
     return img
+
+
 def inverted_img(img):
     img_i = (255-img)
     cv2.imshow('inverted', img_i)
     cv2.waitKey(0)
     return img_i
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Inverted.png', img_i)
+
 
 def grey_img(img):
     img_g = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -29,15 +38,14 @@ def grey_img(img):
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Grey.png', img_g)
 
 
-
 def scaleup_img(img,sf_x,sf_y):
-
     #img_su = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
     img_su = cv2.resize(img, None, fx=sf_x, fy= sf_y)
     cv2.imshow('scale up', img_su)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zwiększenie_skali.png', img)
     return img_su
+
 
 def scaledown_img(img,sf_x,sf_y):
     img_sd1 = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
@@ -47,19 +55,22 @@ def scaledown_img(img,sf_x,sf_y):
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmniejszenie_skali.png', img_sd1)
     return img_sd1
 
+
 def gauss_img(img):
     img_g = cv2.GaussianBlur(img, (7, 7), 0)
     cv2.imshow('gauss', img_g)
     cv2.waitKey(0)
     return img_g
-
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/gauss.png', img_g)
+
+
 def sepia_img(img):
     img_s = cv2.transform(img, np.matrix([[0.272, 0.534, 0.131], [0.349, 0.686, 0.168], [0.393, 0.769, 0.189]]))
     cv2.imshow('sepia', img_s)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Sepia.png', img_s)
     return img_s
+
 
 def convert_img(img):
     img_c = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
@@ -68,12 +79,14 @@ def convert_img(img):
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/HSV.png', img_c)
     return img_c
 
+
 def rotate_img(img):
     img_r = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
     cv2.imshow('rotate', img_r)
     cv2.waitKey(0)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Rotate_90.png', img_r)
     return img_r
+
 
 def brightnesschange_img(img,im_val):
     #value = 30
@@ -93,11 +106,14 @@ def brightnesschange_img(img,im_val):
     return img_bc
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_jasnosci.png', img_bc)
 
+
 def edge_img(img):
     img_ed = cv2.Canny(img, 100, 300)
     cv2.imshow('edge detection', img_ed)
     cv2.waitKey(0)
+    return img_ed
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Wykrycie_krawedzi.png', img_ed)
+
 
 def erosion_img(img):
     img_er = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -105,17 +121,18 @@ def erosion_img(img):
     img_erosion = cv2.erode(img_er, kernel, iterations=1)
     cv2.imshow('erosion', img_erosion)
     cv2.waitKey(0)
+    return img_erosion
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Erozja.png', img_er)
 
-def dilation_img(img):
+
+def dilatation_img(img):
     img_d = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     kernel = np.ones((5, 5), np.uint8)
     img_dilation = cv2.dilate(img_d, kernel, iterations=1)
     cv2.imshow('dilation', img_dilation)
     cv2.waitKey(0)
+    return img_dilation
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Dylatacja.png', img_d)
-
-
 
 
 def skeletonization_img(img):
@@ -123,49 +140,46 @@ def skeletonization_img(img):
     ret, img_s = cv2.threshold(img_s, 127, 255, 0)
     skel = np.zeros(img_s.shape, np.uint8)
     element = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
-
     while True:
         open_s = cv2.morphologyEx(img_s, cv2.MORPH_OPEN, element)
         temp = cv2.subtract(img_s, open_s)
         eroded = cv2.erode(img_s, element)
         skel = cv2.bitwise_or(skel, temp)
         img_s = eroded.copy()
-
         if cv2.countNonZero(img_s) == 0:
             break
 
     cv2.imshow('skeletonization', skel)
     cv2.waitKey(0)
+    return skel
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Szkieletyzacja.png', skel)
 
 
-
-
-def rotate_angle60(img):
-    img = cv.imread(cv.samples.findFile("lenna.png"), 0)
-    rows,cols = img.shape
-    M = cv.getRotationMatrix2D(((cols-1)/2.0,(rows-1)/2.0),60,1)
+def rotate_angle(img1, angle=30):
+    img = img1
+    rows, cols ,data2 = img.shape
+    M = cv.getRotationMatrix2D(((cols-1)/2.0, (rows-1)/2.0), angle, 1)
     dst = cv.warpAffine(img,M,(cols,rows))
-    flipped = cv.flip(img,1)
     cv.imshow("Rotation",dst)
     cv.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Rotate_60.png', dst)
-    cv.imshow("odbicie lustrzane", flipped)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Odbicie_lustrzane.png', flipped)
-    cv.waitKey(0)
+    return dst
+
+
+def flip_img(img):
+    img_fp = cv.flip(img, 1)
+    print('tuututut')
+    cv.imshow('flipped', img_fp)
+    return img_fp
+
 
 def resolution(img):
     #src = cv2.imread('D:/cv2-resize-image-original.png', cv2.IMREAD_UNCHANGED)
-
     # set a new height in pixels
     new_height = 700
-
     # dsize
     dsize = (img.shape[1], new_height)
-
     # resize image
     output = cv2.resize(img, dsize, interpolation=cv2.INTER_AREA)
-
     #cv2.imwrite('resize-image-height.png', output)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_rozdzielczosci.png', output)
     cv.imshow("Dif res",output)
@@ -179,10 +193,8 @@ def two_in_one(img):
     # resize image
     output = cv2.resize(img2, dsize, interpolation=cv2.INTER_AREA)
     # cv2.imwrite('resize-image-height.png', output)
-
     #dst2 = cv2.add(img1,output)
     dst2 = cv.multiply(img1,output)
-
     dst = cv.addWeighted(img1, 0.5, output, 0.5, 0)
     cv.imshow('dodawanie', dst)
     cv.waitKey(0)
@@ -192,9 +204,7 @@ def two_in_one(img):
     cv.waitKey(0)
 
 
-
 def my_LUT(img):
-
     cv.imshow('orginal',img)
     cv.waitKey(0)
     contrast_factor=2
@@ -222,10 +232,10 @@ def bin():
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Binaryzacja.png', thresh1)
     cv.waitKey(0)
 
+
 def andorxor():
     img = cv.imread('lenna.png', 0)
     img2 = cv.imread('pawian.jpg',0)
-
     dsize = (512, 512)
     # resize image
     output = cv2.resize(img2, dsize, interpolation=cv2.INTER_AREA)
@@ -263,9 +273,9 @@ def furrier ():
     plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
     plt.show()
 
+
 def furrier2():
     img13 = cv.imread('pawian.jpg', 0)
-
     dft = cv.dft(np.float32(img13), flags=cv.DFT_COMPLEX_OUTPUT)
     dft_shift = np.fft.fftshift(dft)
     magnitude_spectrum = 20 * np.log(cv.magnitude(dft_shift[:, :, 0], dft_shift[:, :, 1]))
@@ -274,6 +284,7 @@ def furrier2():
     plt.subplot(122), plt.imshow(magnitude_spectrum, cmap='gray')
     plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
     plt.show()
+
 
 def compression():
     #compression_params = [cv2.CV_IMWRITE_PNG_COMPRESSION, 9]
@@ -284,10 +295,13 @@ def compression():
     cv2.imshow('kompresja', img3)
     cv2.waitKey(0)
 
+
 def hist2(img):
     histg = cv2.calcHist([img], [0], None, [256], [0, 256])
     plt.plot(histg)
     plt.show()
+
+
 def coloro(img):
     b1 = img[:, :, 0]
     b2 = img[:, :, 1]

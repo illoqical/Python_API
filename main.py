@@ -1,4 +1,10 @@
+'''
 
+
+
+Author: Kamil Sikora
+
+'''
 
 
 from func import *
@@ -9,13 +15,6 @@ import cv2
 import numpy
 
 
-#test images
-#img = cv2.imread(cv.samples.findFile("pawian.jpg"))
-#img = cv.imread(cv.samples.findFile("lenna.png"),)
-#img2 = cv.imread(cv.samples.findFile("pawian.jpg"))
-
-
-
 #Values
 scale= 1
 filepath = ''
@@ -24,13 +23,19 @@ funtab = []
 funtab = [grey_img,gauss_img, original_img]
 listbox_clear = True
 print(type(funtab))
-funfuntab = { 'orginal': original_img , 'invert' : inverted_img,
-              'grey': grey_img, 'scale_up' :scaleup_img,
-               'gauss': gauss_img,
-              'sepia': sepia_img, 'convert':convert_img, 'brigthness':brightnesschange_img}
+funfuntab = { 'orginal': original_img , 'invert': inverted_img,
+            'grey': grey_img, 'scale_up': scaleup_img,
+            'gauss': gauss_img, 'sepia': sepia_img,
+            'convert': convert_img, 'brigthness': brightnesschange_img,'edge' :edge_img,
+            'erosion': erosion_img, 'dilatation': dilatation_img,
+            'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
+            'flip': flip_img}
 
-my_functions = ('orginal', 'invert', 'grey', 'scale_up','gauss',
-                'sepia', 'convert', 'brigthness')
+my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'gauss',
+                'sepia', 'convert', 'brigthness', 'edge', 'erosion',
+                'dilatation', 'skeletonization', 'rotate_angle', 'flip')
+
+
 
 #Functions
 def Picture2(img, choice):
@@ -45,7 +50,7 @@ def Picture2(img, choice):
                     if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
                         l5.pack()
                         l5.config(text='wrong values')
-                    else :
+                    else:
                         l3.pack_forget()
                         funfuntab[fun](img, scale_x, scale_y)
                 except ValueError:
@@ -63,9 +68,19 @@ def Picture2(img, choice):
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red',font='Helvetica 18 bold')
+            elif choice == 'rotate_angle':
+                try:
+                    l5.pack_forget()
+                    rotate_ang = int(get_option.get())
+                    print('teraz 1')
+                    funfuntab[fun](img, rotate_ang)
+                except ValueError:
+                    l5.pack()
+                    l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
             else:
-
+                print('teraz 12')
                 to_save = funfuntab[fun](img)
+
 
 
 def add_path_list(add):
@@ -81,6 +96,7 @@ def add_path_list(add):
 def click_button():
     print('wcisnieto przycisk')
     print(list(tab))
+
 
 def find_name():
     my_path = listbox.get(ANCHOR)
@@ -109,7 +125,6 @@ def save_to_file():
         print('First click go')
         l5.pack()
         l5.config(text='First filter picture !', fg='red', font='Helvetica 18 bold')
-
 
 
 def add_picture_path():
@@ -162,6 +177,13 @@ def spin_set():
         l7.config(text='set value : ')
         get_option.grid(column= 1,row=1, pady= 5)
         frame2.pack()
+    elif 'rotate_angle' == spin_box.get():
+        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
+        l6.config(text='write angle from 0 to 360')
+        l7.grid(column=0, row=1, pady=5)
+        l7.config(text='set value : ')
+        get_option.grid(column= 1,row=1, pady= 5)
+        frame2.pack()
     else:
         l3.pack_forget()
         l6.grid_forget()
@@ -170,6 +192,7 @@ def spin_set():
         get_option.grid_forget()
         get_option2.grid_forget()
         frame2.pack_forget()
+
 
 def fileSelection(self):
     selection = listbox.curselection()
@@ -202,8 +225,6 @@ def main_prog():
 
 
 
-
-
 #API START HERE
 root = tkinter.Tk()  #creat window
 root.geometry('800x700') # window size
@@ -219,7 +240,7 @@ frame1.config(background='white')
 
 #labels
 l = tkinter.Label(root,
-   text='Aplication',
+   text='Vq Aplication',
    font=('Raleway',20, 'bold'),
    fg='white')
 l.pack()
@@ -275,9 +296,7 @@ spin_box = tkinter.Spinbox(
     #font=Font(family='Helvetica', size=36, weight='bold'))
     font='Helvetica 12')
     #command=select_fun(filepath))
-
 spin_box.pack()
-
 
 
 #buttons
@@ -339,6 +358,7 @@ b5 = tkinter.Button(root,
 #b4.place(x=300, y=260)
 b5.pack(pady=10)
 
+
 #listbox
 listbox = tkinter.Listbox(
     root,height=9,width = 30,
@@ -347,10 +367,8 @@ listbox.place(x=45, y=90)
 listbox.insert(0,'paths...')
 
 
-
 #frame
 frame2 = tkinter.Frame(root, bd=2, bg= '#7673F3')
-
 # frame2.config(background='red')
 
 l6 = tkinter.Label(frame2,
@@ -382,8 +400,6 @@ username2 = tkinter.StringVar()
 get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
 
 
-
-
 #photos
 # pic = tkinter.PhotoImage(file = 'lenna.png')
 # pic.blank()
@@ -391,49 +407,51 @@ get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
 
 root.mainloop()
 
+'''
+#1 Przeksztalecenia barwne
+coloro()                #ZMIANY RGB
+grey_img()              #MONOCHROMATYCZNE
+inverted_img()          #inwersja
+convert_img()
+cv.destroyAllWindows()
+#2 PUNKT
+brightnesschange_img()  #korekte poziomu jasnosci
+resolution()            #zmiana rodzielczosci
+hist2()                 #HISTOGRAM
+two_in_one()            #dodawanie dwoch obrazow, mnozenie,binaryzacja
+my_LUT()                #tablica LUT
+bin()                   #binaryzacja
+cv.destroyAllWindows()
 
-# #1 Przeksztalecenia barwne
-# coloro()                #ZMIANY RGB
-# grey_img()              #MONOCHROMATYCZNE
-# inverted_img()          #inwersja
-# convert_img()
-# cv.destroyAllWindows()
-# #2 PUNKT
-# brightnesschange_img()  #korekte poziomu jasnosci
-# resolution()            #zmiana rodzielczosci
-# hist2()                 #HISTOGRAM
-# two_in_one()            #dodawanie dwoch obrazow, mnozenie,binaryzacja
-# my_LUT()                #tablica LUT
-# bin()                   #binaryzacja
-# cv.destroyAllWindows()
-#
-#
-# # #3 PRZEKSZTALCENIA GEOMETR
-# rotate_angle60()    #rotacja o 60 i odbicie lustrzane
-# rotate_img()        #rotacja o 90
-# scaleup_img()       #zmiana skali
-# scaledown_img()     #zmiana skali
-# cv.destroyAllWindows()
-#
-# # #4 przekształcenia morfologiczne
-# gauss_img()
-# sepia_img()
-# erosion_img()
-# dilation_img()
-# skeletonization_img()
-# cv.destroyAllWindows()
-#
-#
-# # #6 TRANSFORMACJA FOURIERA
-# furrier2()
-# cv.destroyAllWindows()
-#
-#
-# # #7 KOMPRESJA STRATNA
-# compression()
-# cv.destroyAllWindows()
-#
-#
-# # #8 PRZETWARZANIE OBRAZOW BINARNYCH  and / or / xor
-# andorxor()
-# cv.destroyAllWindows()
+
+# #3 PRZEKSZTALCENIA GEOMETR
+rotate_angle60()    #rotacja o 60 i odbicie lustrzane
+rotate_img()        #rotacja o 90
+scaleup_img()       #zmiana skali
+scaledown_img()     #zmiana skali
+cv.destroyAllWindows()
+
+# #4 przekształcenia morfologiczne
+gauss_img()
+sepia_img()
+erosion_img()
+dilation_img()
+skeletonization_img()
+cv.destroyAllWindows()
+
+
+# #6 TRANSFORMACJA FOURIERA
+furrier2()
+cv.destroyAllWindows()
+
+
+# #7 KOMPRESJA STRATNA
+compression()
+cv.destroyAllWindows()
+
+
+# #8 PRZETWARZANIE OBRAZOW BINARNYCH  and / or / xor
+andorxor()
+cv.destroyAllWindows()
+
+'''
