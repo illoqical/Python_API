@@ -38,15 +38,20 @@ def Picture2(img, choice):
     for fun in funfuntab.keys():
         if choice == fun:
             if choice == 'scale_up':
-                scale_x = float(get_option.get())
-                scale_y = float(get_option2.get())
-                if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
-                    l5.pack()
-                    l5.config(text='wrong values')
+                try:
+                    scale_x = float(get_option.get())
+                    scale_y = float(get_option2.get())
 
-                else :
-                    l3.pack_forget()
-                    funfuntab[fun](img, scale_x, scale_y)
+                    if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
+                        l5.pack()
+                        l5.config(text='wrong values')
+                    else :
+                        l3.pack_forget()
+                        funfuntab[fun](img, scale_x, scale_y)
+                except ValueError:
+                    l5.pack()
+                    l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
+
             elif choice == 'brigthness':
                 # if int(get_option.get()) == '':
                 #     l5.pack()
@@ -133,10 +138,12 @@ def entry():
 def spin_set():
     #l3.config(text = spin_box.get())
     #return spin_box.get()
+    l5.pack_forget()
     if 'scale_up' == spin_box.get():
         scale=0
-        frame2.pack(pady=5)
         l3.pack()
+        frame2.pack(pady=5)
+
         if 'scale_up' == spin_box.get():
             #l6.pack()
             l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
