@@ -29,11 +29,11 @@ funfuntab = { 'orginal': original_img , 'invert': inverted_img,
             'convert': convert_img, 'brigthness': brightnesschange_img,'edge' :edge_img,
             'erosion': erosion_img, 'dilatation': dilatation_img,
             'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
-            'flip': flip_img}
+            'flip': flip_img, 'binaration': bin}
 
 my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
-                'dilatation', 'skeletonization', 'rotate_angle', 'flip')
+                'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
 
 
 
@@ -72,13 +72,11 @@ def Picture2(img, choice):
                 try:
                     l5.pack_forget()
                     rotate_ang = int(get_option.get())
-                    print('teraz 1')
                     funfuntab[fun](img, rotate_ang)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
             else:
-                print('teraz 12')
                 to_save = funfuntab[fun](img)
 
 

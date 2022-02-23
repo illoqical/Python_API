@@ -167,7 +167,6 @@ def rotate_angle(img1, angle=30):
 
 def flip_img(img):
     img_fp = cv.flip(img, 1)
-    print('tuututut')
     cv.imshow('flipped', img_fp)
     return img_fp
 
@@ -209,7 +208,6 @@ def my_LUT(img):
     cv.waitKey(0)
     contrast_factor=2
     table = np.array([(i - 74) * contrast_factor + 74 for i in range(0, 256)]).clip(0, 255).astype('uint8')
-
     if img.shape[2] == 1:
         outpu1= cv2.LUT(img, table)[:, :, np.newaxis]
         cv.imshow('LUTB', outpu1)
@@ -220,17 +218,17 @@ def my_LUT(img):
     cv.waitKey(0)
 
 
-def bin():
-    img = cv.imread('lenna.png', 0)
+def bin(img):
     ret, thresh1 = cv.threshold(img, 127, 255, cv.THRESH_BINARY)
     # ret, thresh2 = cv.threshold(img, 127, 255, cv.THRESH_BINARY_INV)
     # ret, thresh3 = cv.threshold(img, 127, 255, cv.THRESH_TRUNC)
     # ret, thresh4 = cv.threshold(img, 127, 255, cv.THRESH_TOZERO)
     # ret, thresh5 = cv.threshold(img, 127, 255, cv.THRESH_TOZERO_INV)
     titles = ['Original Image', 'BINARY', 'BINARY_INV', 'TRUNC', 'TOZERO', 'TOZERO_INV']
-    cv.imshow('binaryzacja',thresh1)
+    cv.imshow('binaryzacja', thresh1)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Binaryzacja.png', thresh1)
     cv.waitKey(0)
+    return thresh1
 
 
 def andorxor():
@@ -258,32 +256,6 @@ def andorxor():
     cv.waitKey(0)
     cv.imshow('AND', bitwiseAnd)
     cv.waitKey(0)
-
-
-def furrier ():
-    img12 = cv.imread('pawian.jpg', 0)
-    f = np.fft.fft2(img12)
-    fshift = np.fft.fftshift(f)
-    magnitude_spectrum = 20 * np.log(np.abs(fshift))
-    cv2.imshow('cos',magnitude_spectrum)
-    cv2.waitKey(0)
-    plt.subplot(121), plt.imshow(img12, cmap='gray')
-    plt.title('Input Image'), plt.xticks([]), plt.yticks([])
-    plt.subplot(122), plt.imshow(magnitude_spectrum, cmap='gray')
-    plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
-    plt.show()
-
-
-def furrier2():
-    img13 = cv.imread('pawian.jpg', 0)
-    dft = cv.dft(np.float32(img13), flags=cv.DFT_COMPLEX_OUTPUT)
-    dft_shift = np.fft.fftshift(dft)
-    magnitude_spectrum = 20 * np.log(cv.magnitude(dft_shift[:, :, 0], dft_shift[:, :, 1]))
-    plt.subplot(121), plt.imshow(img13, cmap='gray')
-    plt.title('Input Image'), plt.xticks([]), plt.yticks([])
-    plt.subplot(122), plt.imshow(magnitude_spectrum, cmap='gray')
-    plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])
-    plt.show()
 
 
 def compression():
@@ -327,6 +299,5 @@ def coloro(img):
     cv.imshow('bred', br)
     cv.imshow('b1', b1)
     cv.imshow('b2', b2)
-
     cv.waitKey(0)
 
