@@ -166,56 +166,63 @@ def entry():
     print('abs')
 
 
+def spin_layout_1x1(text_val,text_1):
+    l6.grid(columnspan=2, row=0, padx=10, pady=5)
+    l6.config(text=text_val)
+    l7.grid(column=0, row=1, pady=5)
+    l7.config(text=text_1)
+    get_option.grid(column=1, row=1, pady=5)
+    frame2.pack()
+
+def spin_layout_2x2(text_val,text_1,text_2):
+    l3.pack()
+    frame2.pack(pady=5)
+
+    # l6.pack()
+    l6.grid(columnspan=2, row=0, padx=10, pady=5)
+    l6.config(text=text_val)
+    l7.grid(column=0, row=1, pady=5)
+    l7.config(text=text_1)
+    l8.grid(column=0, row=2, pady=5)
+    l8.config(text=text_2)
+
+    get_option.grid(column=1, row=1, pady=5)
+    get_option2.grid(column=1, row=2, pady=5)
+
+
 def spin_set():
     #l3.config(text = spin_box.get())
     #return spin_box.get()
     l5.pack_forget()
     if 'scale_up' == spin_box.get():
         scale=0
-        l3.pack()
-        frame2.pack(pady=5)
-
-        if 'scale_up' == spin_box.get():
-            #l6.pack()
-            l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-            l6.config(text='write value from 1 to 2')
-            l7.grid(column= 0,row=1, pady= 5)
-            l7.config(text='set value x: ')
-            l8.grid(column= 0,row=2, pady= 5)
-            l8.config(text='set value y: ')
-
-        get_option.grid(column= 1,row=1, pady= 5)
-        get_option2.grid(column= 1,row=2, pady= 5)
+        # l3.pack()
+        # frame2.pack(pady=5)
+        spin_layout_2x2('write from 1 to 2', 'set value x: ', 'set value y: ')
+        # if 'scale_up' == spin_box.get():
+        #     #l6.pack()
+        #     l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
+        #     l6.config(text='write value from 1 to 2')
+        #     l7.grid(column= 0,row=1, pady= 5)
+        #     l7.config(text='set value x: ')
+        #     l8.grid(column= 0,row=2, pady= 5)
+        #     l8.config(text='set value y: ')
+        #
+        # get_option.grid(column= 1,row=1, pady= 5)
+        # get_option2.grid(column= 1,row=2, pady= 5)
     elif 'resolution' == spin_box.get():
-        scale=0
-        l3.pack()
-        frame2.pack(pady=5)
+        spin_layout_2x2('write new resolution value','set value x: ','set value y: ')
 
-
-        #l6.pack()
-        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-        l6.config(text='write new resolution value')
-        l7.grid(column= 0,row=1, pady= 5)
-        l7.config(text='set value x: ')
-        l8.grid(column= 0,row=2, pady= 5)
-        l8.config(text='set value y: ')
-
-        get_option.grid(column= 1,row=1, pady= 5)
-        get_option2.grid(column= 1,row=2, pady= 5)
     elif 'brigthness' == spin_box.get():
-        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-        l6.config(text='write value from 0 to 200')
-        l7.grid(column=0, row=1, pady=5)
-        l7.config(text='set value : ')
-        get_option.grid(column= 1,row=1, pady= 5)
-        frame2.pack()
+        spin_layout_1x1('write value from 0 to 200','set value : ')
     elif 'rotate_angle' == spin_box.get():
-        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-        l6.config(text='write angle from 0 to 360')
-        l7.grid(column=0, row=1, pady=5)
-        l7.config(text='set value : ')
-        get_option.grid(column= 1,row=1, pady= 5)
-        frame2.pack()
+        # l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
+        # l6.config(text='write angle from 0 to 360')
+        # l7.grid(column=0, row=1, pady=5)
+        # l7.config(text='set value : ')
+        # get_option.grid(column= 1,row=1, pady= 5)
+        # frame2.pack()
+        spin_layout_1x1('write angle from 0 to 360', 'set value : ')
 
     else:
         l3.pack_forget()
