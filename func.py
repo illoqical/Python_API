@@ -171,18 +171,19 @@ def flip_img(img):
     return img_fp
 
 
-def resolution(img):
+def resolution(img,width,height):
     #src = cv2.imread('D:/cv2-resize-image-original.png', cv2.IMREAD_UNCHANGED)
     # set a new height in pixels
     new_height = 700
     # dsize
-    dsize = (img.shape[1], new_height)
+    dsize = (width, height)
     # resize image
     output = cv2.resize(img, dsize, interpolation=cv2.INTER_AREA)
     #cv2.imwrite('resize-image-height.png', output)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_rozdzielczosci.png', output)
     cv.imshow("Dif res",output)
-    cv.waitKey(0)
+    return output
+    # cv.waitKey(0)
 
 
 def two_in_one(img):

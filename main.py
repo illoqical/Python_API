@@ -23,7 +23,7 @@ funtab = []
 funtab = [grey_img,gauss_img, original_img]
 listbox_clear = True
 print(type(funtab))
-funfuntab = { 'orginal': original_img , 'invert': inverted_img,
+funfuntab = { 'orginal': original_img, 'resolution':resolution, 'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
             'gauss': gauss_img, 'sepia': sepia_img,
             'convert': convert_img, 'brigthness': brightnesschange_img,'edge' :edge_img,
@@ -31,7 +31,7 @@ funfuntab = { 'orginal': original_img , 'invert': inverted_img,
             'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
             'flip': flip_img, 'binaration': bin}
 
-my_functions = ('orginal', 'invert', 'grey', 'scale_up', 'gauss',
+my_functions = ('orginal','resolution' ,'invert', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
                 'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
 
@@ -52,7 +52,7 @@ def Picture2(img, choice):
                         l5.config(text='wrong values')
                     else:
                         l3.pack_forget()
-                        funfuntab[fun](img, scale_x, scale_y)
+                        to_save = funfuntab[fun](img, scale_x, scale_y)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
@@ -64,7 +64,7 @@ def Picture2(img, choice):
                 try:
                     l5.pack_forget()
                     brightness = int(get_option.get())
-                    funfuntab[fun](img, brightness)
+                    to_save = funfuntab[fun](img, brightness)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red',font='Helvetica 18 bold')
@@ -72,10 +72,25 @@ def Picture2(img, choice):
                 try:
                     l5.pack_forget()
                     rotate_ang = int(get_option.get())
-                    funfuntab[fun](img, rotate_ang)
+                    to_save = funfuntab[fun](img, rotate_ang)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
+            elif choice == 'resolution':
+                try:
+                    new_width = int(get_option.get())
+                    new_height = int(get_option2.get())
+
+                    # if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
+                    #     l5.pack()
+                    #     l5.config(text='wrong values')
+                    # else:
+                    l3.pack_forget()
+                    to_save = funfuntab[fun](img, new_width, new_height)
+                except ValueError:
+                    l5.pack()
+                    l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
+
             else:
                 to_save = funfuntab[fun](img)
 
@@ -111,7 +126,7 @@ def find_name():
 
 def save_to_file():
     path_to_save = filedialog.askdirectory(title = "Select Directory")
-    print(path_to_save)
+    print('save to : '+ path_to_save)
 
     try:
         #print(type(to_save))
@@ -119,6 +134,9 @@ def save_to_file():
         path_to_save2 = path_to_save + '/' + find_name() + '_' + spin_box.get() + '.png'
         #print(path_to_save2)
         cv2.imwrite(path_to_save2, to_save)
+        print('First click go')
+        l5.pack()
+        l5.config(text='Successful save file!', fg='green', font='Helvetica 18 bold')
     except NameError:
         print('First click go')
         l5.pack()
@@ -168,6 +186,22 @@ def spin_set():
 
         get_option.grid(column= 1,row=1, pady= 5)
         get_option2.grid(column= 1,row=2, pady= 5)
+    elif 'resolution' == spin_box.get():
+        scale=0
+        l3.pack()
+        frame2.pack(pady=5)
+
+
+        #l6.pack()
+        l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
+        l6.config(text='write new resolution value')
+        l7.grid(column= 0,row=1, pady= 5)
+        l7.config(text='set value x: ')
+        l8.grid(column= 0,row=2, pady= 5)
+        l8.config(text='set value y: ')
+
+        get_option.grid(column= 1,row=1, pady= 5)
+        get_option2.grid(column= 1,row=2, pady= 5)
     elif 'brigthness' == spin_box.get():
         l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
         l6.config(text='write value from 0 to 200')
@@ -182,6 +216,7 @@ def spin_set():
         l7.config(text='set value : ')
         get_option.grid(column= 1,row=1, pady= 5)
         frame2.pack()
+
     else:
         l3.pack_forget()
         l6.grid_forget()
