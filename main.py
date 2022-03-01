@@ -195,33 +195,15 @@ def spin_set():
     #return spin_box.get()
     l5.pack_forget()
     if 'scale_up' == spin_box.get():
-        scale=0
-        # l3.pack()
-        # frame2.pack(pady=5)
         spin_layout_2x2('write from 1 to 2', 'set value x: ', 'set value y: ')
-        # if 'scale_up' == spin_box.get():
-        #     #l6.pack()
-        #     l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-        #     l6.config(text='write value from 1 to 2')
-        #     l7.grid(column= 0,row=1, pady= 5)
-        #     l7.config(text='set value x: ')
-        #     l8.grid(column= 0,row=2, pady= 5)
-        #     l8.config(text='set value y: ')
-        #
-        # get_option.grid(column= 1,row=1, pady= 5)
-        # get_option2.grid(column= 1,row=2, pady= 5)
+
     elif 'resolution' == spin_box.get():
         spin_layout_2x2('write new resolution value','set value x: ','set value y: ')
 
     elif 'brigthness' == spin_box.get():
         spin_layout_1x1('write value from 0 to 200','set value : ')
+
     elif 'rotate_angle' == spin_box.get():
-        # l6.grid(columnspan=2, row=0,padx= 10, pady= 5)
-        # l6.config(text='write angle from 0 to 360')
-        # l7.grid(column=0, row=1, pady=5)
-        # l7.config(text='set value : ')
-        # get_option.grid(column= 1,row=1, pady= 5)
-        # frame2.pack()
         spin_layout_1x1('write angle from 0 to 360', 'set value : ')
 
     else:
@@ -263,6 +245,25 @@ def main_prog():
         Picture2(kk,spin_box.get())
 
 
+def make_label_short(name,text,font,background):
+    new_label1 = tkinter.Label(name,
+               text=text,
+               anchor='center',
+               font=font,
+               fg='white',background = background)
+    # new_label1.grid(column=pos_x, row=pos_y)
+    return new_label1
+
+def make_label_long(name, text,anchor,font,fg,backgorund):
+    new_label2 = tkinter.Label(name,
+               text=text,
+               anchor=anchor,
+               font=font,
+               fg=fg,
+               background=backgorund)
+    # new_label2.grid(column=pos_x, row=pos_y)
+    return new_label2
+
 
 
 #API START HERE
@@ -279,45 +280,61 @@ frame1.config(background='white')
 
 
 #labels
-l = tkinter.Label(root,
-   text='Image Aplication',
-   font=('Raleway',20, 'bold'),
-   fg='white')
+# l = tkinter.Label(root,
+#    text='Image Aplication',
+#    font=('Raleway',20, 'bold'),
+#    fg='white')
+# l.pack()
+# l.config(background='#8E8BFF')
+text_standard = ('Raleway', 15)
+main_backgorund_color = '#8E8BFF'
+l = make_label_short(root,'Image Aplication',('Raleway',20, 'bold'),main_backgorund_color)
 l.pack()
-l.config(background='#8E8BFF')
 
-l2 = tkinter.Label(root,
-   text='list of added photos paths',
-   anchor='center',
-   font=('Raleway', 13),
-   fg='white')
+l2 = make_label_short(root,'list of added photos paths',('Raleway', 13),main_backgorund_color)
 l2.place(x=40,y=60)
-l2.config(background='#8E8BFF')
 
-l4 = tkinter.Label(root,
-   text='1. Add picture \n2. Select photo path'
+l4= make_label_short(root,'1. Add picture \n2. Select photo path'
         '\n3. Click to select option form list \n4. Click button "GO".',
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l4.pack(pady=20)
-l4.config(background='#8E8BFF')
+                     text_standard,main_backgorund_color )
+l4.pack(pady = 20)
 
-l3 = tkinter.Label(root,
-   text='Set resize prop.',
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l3.config(background='#8E8BFF')
+l3 = make_label_short(root,'Set resize prop.',text_standard,main_backgorund_color)
 
-l5 = tkinter.Label(root,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l5.config(background='#8E8BFF')
+l5 = make_label_short(root,'',text_standard,main_backgorund_color)
+
+# l2 = tkinter.Label(root,
+#    text='list of added photos paths',
+#    anchor='center',
+#    font=('Raleway', 13),
+#    fg='white')
+# l2.place(x=40,y=60)
+# l2.config(background='#8E8BFF')
+
+# l4 = tkinter.Label(root,
+#    text='1. Add picture \n2. Select photo path'
+#         '\n3. Click to select option form list \n4. Click button "GO".',
+#    anchor='center',
+#    font=('Raleway', 15),
+#    fg='white')
+# #l3.place(x=300,y=600)
+# l4.pack(pady=20)
+# l4.config(background='#8E8BFF')
+#
+# l3 = tkinter.Label(root,
+#    text='Set resize prop.',
+#    anchor='center',
+#    font=('Raleway', 15),
+#    fg='white')
+# #l3.place(x=300,y=600)
+# l3.config(background='#8E8BFF')
+#
+# l5 = tkinter.Label(root,
+#    anchor='center',
+#    font=('Raleway', 15),
+#    fg='white')
+# #l3.place(x=300,y=600)
+# l5.config(background='#8E8BFF')
 
 
 
