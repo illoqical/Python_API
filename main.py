@@ -273,19 +273,14 @@ root.resizable(width=False, height=False) #block resize
 root.config(background='#8E8BFF')
 root.title("VqApp")
 
-#frame
+#frame --------------
 frame1 = tkinter.Frame(root, heigh=400, bd=2)
 frame1.place(x=55, y=350)
 frame1.config(background='white')
 
 
-#labels
-# l = tkinter.Label(root,
-#    text='Image Aplication',
-#    font=('Raleway',20, 'bold'),
-#    fg='white')
-# l.pack()
-# l.config(background='#8E8BFF')
+#labels --------------
+
 text_standard = ('Raleway', 15)
 main_backgorund_color = '#8E8BFF'
 l = make_label_short(root,'Image Aplication',('Raleway',20, 'bold'),main_backgorund_color)
@@ -302,39 +297,6 @@ l4.pack(pady = 20)
 l3 = make_label_short(root,'Set resize prop.',text_standard,main_backgorund_color)
 
 l5 = make_label_short(root,'',text_standard,main_backgorund_color)
-
-# l2 = tkinter.Label(root,
-#    text='list of added photos paths',
-#    anchor='center',
-#    font=('Raleway', 13),
-#    fg='white')
-# l2.place(x=40,y=60)
-# l2.config(background='#8E8BFF')
-
-# l4 = tkinter.Label(root,
-#    text='1. Add picture \n2. Select photo path'
-#         '\n3. Click to select option form list \n4. Click button "GO".',
-#    anchor='center',
-#    font=('Raleway', 15),
-#    fg='white')
-# #l3.place(x=300,y=600)
-# l4.pack(pady=20)
-# l4.config(background='#8E8BFF')
-#
-# l3 = tkinter.Label(root,
-#    text='Set resize prop.',
-#    anchor='center',
-#    font=('Raleway', 15),
-#    fg='white')
-# #l3.place(x=300,y=600)
-# l3.config(background='#8E8BFF')
-#
-# l5 = tkinter.Label(root,
-#    anchor='center',
-#    font=('Raleway', 15),
-#    fg='white')
-# #l3.place(x=300,y=600)
-# l5.config(background='#8E8BFF')
 
 
 
