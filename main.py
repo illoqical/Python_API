@@ -260,7 +260,7 @@ def main_prog():
 
 #API START HERE
 root = tkinter.Tk()  #creat window
-root.geometry('800x700') # window size
+root.geometry('800x600') # window size
 root.resizable(width=False, height=False) #block resize
 root.config(background='#8E8BFF')
 root.title("VqApp")
@@ -273,7 +273,7 @@ frame1.config(background='white')
 
 #labels
 l = tkinter.Label(root,
-   text='Vq Aplication',
+   text='Image Aplication',
    font=('Raleway',20, 'bold'),
    fg='white')
 l.pack()
@@ -354,13 +354,13 @@ b1 = tkinter.Button(frame1,
 b1.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b2 = tkinter.Button(frame1,
-    text='Find',
+    text='None',
     bg='#7673F3',
     font=('Raleway', 12, 'bold'),
     fg='white',
-    width=12, heigh=2,
+    width=12, heigh=2)
     # command=select_fun(tab))
-    command=find_name)
+    # command=find_name)
 b2.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b3 = tkinter.Button(frame1,
