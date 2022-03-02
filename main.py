@@ -281,8 +281,11 @@ frame1.config(background='white')
 
 #labels --------------
 
+#options
 text_standard = ('Raleway', 15)
 main_backgorund_color = '#8E8BFF'
+
+#labels - root
 l = make_label_short(root,'Image Aplication',('Raleway',20, 'bold'),main_backgorund_color)
 l.pack()
 
@@ -295,7 +298,6 @@ l4= make_label_short(root,'1. Add picture \n2. Select photo path'
 l4.pack(pady = 20)
 
 l3 = make_label_short(root,'Set resize prop.',text_standard,main_backgorund_color)
-
 l5 = make_label_short(root,'',text_standard,main_backgorund_color)
 
 
@@ -390,26 +392,10 @@ listbox.insert(0,'paths...')
 frame2 = tkinter.Frame(root, bd=2, bg= '#7673F3')
 # frame2.config(background='red')
 
-l6 = tkinter.Label(frame2,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l6.config(background='#8E8BFF')
-
-l7 = tkinter.Label(frame2,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l7.config(background='#8E8BFF')
-
-l8 = tkinter.Label(frame2,
-   anchor='center',
-   font=('Raleway', 15),
-   fg='white')
-#l3.place(x=300,y=600)
-l8.config(background='#8E8BFF')
+#labels  - frame2
+l6 = make_label_short(frame2,'',text_standard,main_backgorund_color)
+l7 = make_label_short(frame2,'',text_standard,main_backgorund_color)
+l8 = make_label_short(frame2,'',text_standard,main_backgorund_color)
 
 
 #entry
@@ -427,6 +413,8 @@ get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
 root.mainloop()
 
 '''
+OPTIONS - PL
+
 #1 Przeksztalecenia barwne
 coloro()                #ZMIANY RGB
 grey_img()              #MONOCHROMATYCZNE
