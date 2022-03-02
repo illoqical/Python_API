@@ -22,7 +22,7 @@ tab= []
 funtab = []
 funtab = [grey_img,gauss_img, original_img]
 listbox_clear = True
-print(type(funtab))
+# print(type(funtab))
 funfuntab = { 'orginal': original_img, 'resolution':resolution, 'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
             'gauss': gauss_img, 'sepia': sepia_img,
@@ -106,11 +106,6 @@ def add_path_list(add):
     listbox.insert(0, text)
 
 
-def click_button():
-    print('wcisnieto przycisk')
-    print(list(tab))
-
-
 def find_name():
     my_path = listbox.get(ANCHOR)
     num = my_path.find('.')
@@ -126,7 +121,7 @@ def find_name():
 
 def save_to_file():
     path_to_save = filedialog.askdirectory(title = "Select Directory")
-    print('save to : '+ path_to_save)
+    # print('save to : '+ path_to_save)
 
     try:
         #print(type(to_save))
@@ -134,11 +129,11 @@ def save_to_file():
         path_to_save2 = path_to_save + '/' + find_name() + '_' + spin_box.get() + '.png'
         #print(path_to_save2)
         cv2.imwrite(path_to_save2, to_save)
-        print('First click go')
+        # print('First click go')
         l5.pack()
         l5.config(text='Successful save file!', fg='green', font='Helvetica 18 bold')
     except NameError:
-        print('First click go')
+        # print('First click go')
         l5.pack()
         l5.config(text='First filter picture !', fg='red', font='Helvetica 18 bold')
 
@@ -152,7 +147,7 @@ def add_picture_path():
     if filepath != '' :
         tab.append(filepath)
         add_path_list(filepath)
-    click_button()
+
     button_add_picture_text.set('ADD PICTURE')
 
 
@@ -160,10 +155,8 @@ def select_fun(img):
     for fun in funtab:
         if current_value.get() == fun:
             fun(img[1])
-    print(current_value.get())
+    # print(current_value.get())
 
-def entry():
-    print('abs')
 
 
 def spin_layout_1x1(text_val,text_1):
@@ -218,18 +211,18 @@ def spin_set():
 
 def fileSelection(self):
     selection = listbox.curselection()
-    print(selection)
+    # print(selection)
 
 
 def listbox_delete():
     listbox.delete(ANCHOR)
-    print(tab)
+    # print(tab)
 
 
 def main_prog():
     word1 = listbox.get(ANCHOR)
-    print('cc')
-    print(word1)
+    # print('cc')
+    # print(word1)
     if word1 == '':
         #l5.place(x=300, y=600)
         l5.pack(pady=35)
@@ -237,7 +230,7 @@ def main_prog():
     elif word1 == 'paths...':
         l5.pack(pady=35)
         l5.config(text='WRONG PATH !',fg='red',font='Helvetica 18 bold')
-        print(l5.pack_info())
+        # print(l5.pack_info())
 
     else:
         l5.pack_forget()
@@ -268,7 +261,7 @@ def make_label_long(name, text,anchor,font,fg,backgorund):
 
 #API START HERE
 root = tkinter.Tk()  #creat window
-root.geometry('800x600') # window size
+root.geometry('755x600') # window size
 root.resizable(width=False, height=False) #block resize
 root.config(background='#8E8BFF')
 root.title("VqApp")
@@ -278,6 +271,10 @@ frame1 = tkinter.Frame(root, heigh=400, bd=2)
 frame1.place(x=55, y=350)
 frame1.config(background='white')
 
+frame3 = tkinter.Frame(root, heigh=400, bd=2)
+frame3.place(x=305, y=40)
+frame3.config(background= '#8E8BFF')
+# frame3.config(background= 'white')
 
 #labels --------------
 
@@ -286,19 +283,19 @@ text_standard = ('Raleway', 15)
 main_backgorund_color = '#8E8BFF'
 
 #labels - root
-l = make_label_short(root,'Image Aplication',('Raleway',20, 'bold'),main_backgorund_color)
+l = make_label_short(root,'Img Aplication',('Raleway',20, 'bold'),main_backgorund_color)
 l.pack()
 
 l2 = make_label_short(root,'list of added photos paths',('Raleway', 13),main_backgorund_color)
 l2.place(x=40,y=60)
 
-l4= make_label_short(root,'1. Add picture \n2. Select photo path'
+l4= make_label_short(frame3,'1. Add picture \n2. Select photo path'
         '\n3. Click to select option form list \n4. Click button "GO".',
                      text_standard,main_backgorund_color )
-l4.pack(pady = 20)
+l4.pack(pady = 20, padx = 60)
 
-l3 = make_label_short(root,'Set resize prop.',text_standard,main_backgorund_color)
-l5 = make_label_short(root,'',text_standard,main_backgorund_color)
+l3 = make_label_short(frame3,'Set resize prop.',text_standard,main_backgorund_color)
+l5 = make_label_short(frame3,'',text_standard,main_backgorund_color)
 
 
 
@@ -307,7 +304,7 @@ current_value = tkinter.StringVar()
 # c.pack()
 # c.config(width=2, heigh=2)
 spin_box = tkinter.Spinbox(
-    root,
+    frame3,
     from_=1,
     to=len(my_functions),
     values=my_functions,
@@ -369,7 +366,7 @@ b4 = tkinter.Button(root,
     command=listbox_delete)
 b4.place(x=150, y=260)
 
-b5 = tkinter.Button(root,
+b5 = tkinter.Button(frame3,
     text='GO',
     bg='#7673F3',
     font=('Raleway', 12, 'bold'),
@@ -389,7 +386,7 @@ listbox.insert(0,'paths...')
 
 
 #frame
-frame2 = tkinter.Frame(root, bd=2, bg= '#7673F3')
+frame2 = tkinter.Frame(frame3, bd=2, bg= '#7673F3')
 # frame2.config(background='red')
 
 #labels  - frame2
