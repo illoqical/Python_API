@@ -2,6 +2,8 @@
 OpenCv functions
 
 Author: Kamil Sikora
+Date: 03.03.2022
+<kamil.qvr@gmail.com>
 '''
 
 

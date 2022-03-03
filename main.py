@@ -1,9 +1,10 @@
 '''
-
+Application for filtering images
 
 
 Author: Kamil Sikora
-
+Date: 03.03.2022
+<kamil.qvr@gmail.com>
 '''
 
 
@@ -12,7 +13,6 @@ import tkinter
 from tkinter import ANCHOR
 from tkinter import filedialog, Text
 import cv2
-import numpy
 
 
 #Values
@@ -34,7 +34,6 @@ funfuntab = { 'orginal': original_img, 'resolution':resolution, 'invert': invert
 my_functions = ('orginal','resolution' ,'invert', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
                 'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
-
 
 
 #Functions
@@ -401,13 +400,8 @@ get_option = tkinter.Entry(frame2, textvariable=username,width=5)
 username2 = tkinter.StringVar()
 get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
 
-
-#photos
-# pic = tkinter.PhotoImage(file = 'lenna.png')
-# pic.blank()
-
-
-root.mainloop()
+if __name__ == "__main__":
+    root.mainloop()
 
 '''
 OPTIONS - PL
@@ -417,45 +411,22 @@ coloro()                #ZMIANY RGB
 grey_img()              #MONOCHROMATYCZNE
 inverted_img()          #inwersja
 convert_img()
-cv.destroyAllWindows()
-#2 PUNKT
 brightnesschange_img()  #korekte poziomu jasnosci
 resolution()            #zmiana rodzielczosci
 hist2()                 #HISTOGRAM
 two_in_one()            #dodawanie dwoch obrazow, mnozenie,binaryzacja
 my_LUT()                #tablica LUT
 bin()                   #binaryzacja
-cv.destroyAllWindows()
-
-
-# #3 PRZEKSZTALCENIA GEOMETR
-rotate_angle60()    #rotacja o 60 i odbicie lustrzane
-rotate_img()        #rotacja o 90
-scaleup_img()       #zmiana skali
-scaledown_img()     #zmiana skali
-cv.destroyAllWindows()
-
-# #4 przekształcenia morfologiczne
-gauss_img()
-sepia_img()
-erosion_img()
-dilation_img()
-skeletonization_img()
-cv.destroyAllWindows()
-
-
-# #6 TRANSFORMACJA FOURIERA
-furrier2()
-cv.destroyAllWindows()
-
-
-# #7 KOMPRESJA STRATNA
+rotate_angle60()        #rotacja o 60 i odbicie lustrzane
+rotate_img()            #rotacja o 90
+scaleup_img()           #zmiana skali
+scaledown_img()         #zmiana skali
+gauss_img()             #rozmycie gaussa
+sepia_img()             #sepia
+erosion_img()           #erozja
+dilation_img()          #dylatacji
+skeletonization_img()   #szkieletyzacja
 compression()
-cv.destroyAllWindows()
-
-
-# #8 PRZETWARZANIE OBRAZOW BINARNYCH  and / or / xor
 andorxor()
-cv.destroyAllWindows()
 
 '''
