@@ -16,22 +16,22 @@ import cv2
 
 
 #Values
-scale= 1
+scale = 1
 filepath = ''
-tab= []
+tab = []
 funtab = []
-funtab = [grey_img,gauss_img, original_img]
+funtab = [grey_img, gauss_img, original_img]
 listbox_clear = True
-# print(type(funtab))
-funfuntab = { 'orginal': original_img, 'resolution':resolution, 'invert': inverted_img,
+
+funfuntab = {'orginal': original_img, 'resolution': resolution, 'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
             'gauss': gauss_img, 'sepia': sepia_img,
-            'convert': convert_img, 'brigthness': brightnesschange_img,'edge' :edge_img,
+            'convert': convert_img, 'brigthness': brightnesschange_img, 'edge': edge_img,
             'erosion': erosion_img, 'dilatation': dilatation_img,
             'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
             'flip': flip_img, 'binaration': bin}
 
-my_functions = ('orginal','resolution' ,'invert', 'grey', 'scale_up', 'gauss',
+my_functions = ('orginal', 'resolution', 'invert', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
                 'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
 
@@ -46,7 +46,7 @@ def Picture2(img, choice):
                     scale_x = float(get_option.get())
                     scale_y = float(get_option2.get())
 
-                    if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
+                    if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2:
                         l5.pack()
                         l5.config(text='wrong values')
                     else:
@@ -57,16 +57,14 @@ def Picture2(img, choice):
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
 
             elif choice == 'brigthness':
-                # if int(get_option.get()) == '':
-                #     l5.pack()
-                #     l5.config(text='Empty box !')
+
                 try:
                     l5.pack_forget()
                     brightness = int(get_option.get())
                     to_save = funfuntab[fun](img, brightness)
                 except ValueError:
                     l5.pack()
-                    l5.config(text='Empty box !', fg='red',font='Helvetica 18 bold')
+                    l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
             elif choice == 'rotate_angle':
                 try:
                     l5.pack_forget()
@@ -80,10 +78,6 @@ def Picture2(img, choice):
                     new_width = int(get_option.get())
                     new_height = int(get_option2.get())
 
-                    # if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2 :
-                    #     l5.pack()
-                    #     l5.config(text='wrong values')
-                    # else:
                     l3.pack_forget()
                     to_save = funfuntab[fun](img, new_width, new_height)
                 except ValueError:
@@ -119,7 +113,7 @@ def find_name():
 
 
 def save_to_file():
-    path_to_save = filedialog.askdirectory(title = "Select Directory")
+    path_to_save = filedialog.askdirectory(title="Select Directory")
     # print('save to : '+ path_to_save)
 
     try:
@@ -140,10 +134,10 @@ def save_to_file():
 def add_picture_path():
     l5.pack_forget()
     button_add_picture_text.set('loading...')
-    filepath = filedialog.askopenfilename( initialdir = "/", title = "Select File",
-                                           filetypes=(("all files","*.*"),("executables",".exe")))
+    filepath = filedialog.askopenfilename( initialdir="/", title="Select File",
+                                           filetypes=(("all files", "*.*"), ("executables", ".exe")))
 
-    if filepath != '' :
+    if filepath != '':
         tab.append(filepath)
         add_path_list(filepath)
 
@@ -158,7 +152,7 @@ def select_fun(img):
 
 
 
-def spin_layout_1x1(text_val,text_1):
+def spin_layout_1x1(text_val, text_1):
     l6.grid(columnspan=2, row=0, padx=10, pady=5)
     l6.config(text=text_val)
     l7.grid(column=0, row=1, pady=5)
@@ -166,7 +160,7 @@ def spin_layout_1x1(text_val,text_1):
     get_option.grid(column=1, row=1, pady=5)
     frame2.pack()
 
-def spin_layout_2x2(text_val,text_1,text_2):
+def spin_layout_2x2(text_val, text_1, text_2):
     l3.pack()
     frame2.pack(pady=5)
 
@@ -225,28 +219,28 @@ def main_prog():
     if word1 == '':
         #l5.place(x=300, y=600)
         l5.pack(pady=35)
-        l5.config(text='SELECT FILE PTAH FROM LIST !',fg='red',font='Helvetica 18 bold')
+        l5.config(text='SELECT FILE PTAH FROM LIST !', fg='red', font='Helvetica 18 bold')
     elif word1 == 'paths...':
         l5.pack(pady=35)
-        l5.config(text='WRONG PATH !',fg='red',font='Helvetica 18 bold')
+        l5.config(text='WRONG PATH !', fg='red', font='Helvetica 18 bold')
         # print(l5.pack_info())
 
     else:
         l5.pack_forget()
         kk = cv.imread(word1.replace("Add file: ", ""))
-        Picture2(kk,spin_box.get())
+        Picture2(kk, spin_box.get())
 
 
-def make_label_short(name,text,font,background):
+def make_label_short(name, text, font, background):
     new_label1 = tkinter.Label(name,
                text=text,
                anchor='center',
                font=font,
-               fg='white',background = background)
+               fg='white',background=background)
     # new_label1.grid(column=pos_x, row=pos_y)
     return new_label1
 
-def make_label_long(name, text,anchor,font,fg,backgorund):
+def make_label_long(name, text, anchor, font, fg, backgorund):
     new_label2 = tkinter.Label(name,
                text=text,
                anchor=anchor,
@@ -291,7 +285,7 @@ l2.place(x=40,y=60)
 l4= make_label_short(frame3,'1. Add picture \n2. Select photo path'
         '\n3. Click to select option form list \n4. Click button "GO".',
                      text_standard,main_backgorund_color )
-l4.pack(pady = 20, padx = 60)
+l4.pack(pady=20, padx=60)
 
 l3 = make_label_short(frame3,'Set resize prop.',text_standard,main_backgorund_color)
 l5 = make_label_short(frame3,'',text_standard,main_backgorund_color)

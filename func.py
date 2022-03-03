@@ -7,14 +7,11 @@ Date: 03.03.2022
 '''
 
 
-
 import cv2 as cv
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-
 #img = cv.imread(cv.samples.findFile("lenna.png"),)
-
 
 
 def original_img(img):
@@ -174,15 +171,8 @@ def flip_img(img):
 
 
 def resolution(img,width,height):
-    #src = cv2.imread('D:/cv2-resize-image-original.png', cv2.IMREAD_UNCHANGED)
-    # set a new height in pixels
-    new_height = 700
-    # dsize
     dsize = (width, height)
-    # resize image
     output = cv2.resize(img, dsize, interpolation=cv2.INTER_AREA)
-    #cv2.imwrite('resize-image-height.png', output)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_rozdzielczosci.png', output)
     cv.imshow("Dif res",output)
     return output
     # cv.waitKey(0)
@@ -192,10 +182,8 @@ def two_in_one(img):
     img1 = cv.imread('lenna.png')
     img2 = cv.imread('pawian.jpg')
     dsize = (512, 512)
-    # resize image
     output = cv2.resize(img2, dsize, interpolation=cv2.INTER_AREA)
-    # cv2.imwrite('resize-image-height.png', output)
-    #dst2 = cv2.add(img1,output)
+
     dst2 = cv.multiply(img1,output)
     dst = cv.addWeighted(img1, 0.5, output, 0.5, 0)
     cv.imshow('dodawanie', dst)
