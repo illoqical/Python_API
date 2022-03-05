@@ -263,7 +263,7 @@ def make_label_long(name, text, anchor, font, fg, backgorund):
     return new_label2
 
 
-def print_selection():
+def checkbox_selection():
     print('cos dziala')
     global color_val
     if (var1.get() == 1) & (var2.get() == 0) & (var3.get() == 0):
@@ -277,7 +277,7 @@ def print_selection():
         color_val = 'blue'
         l5.pack_forget()
     elif (var1.get() == 0) & (var2.get() == 0) & (var3.get() == 0):
-        pass
+        color_val = 'none'
     else:
         var1.set(0)
         var2.set(0)
