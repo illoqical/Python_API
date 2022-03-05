@@ -23,7 +23,7 @@ funtab = []
 funtab = [grey_img, gauss_img, original_img]
 listbox_clear = True
 
-funfuntab = {'orginal': original_img, 'resolution': resolution, 'invert': inverted_img,
+funfuntab = {'orginal': original_img, 'resolution': resolution,'color': coloro,'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
             'gauss': gauss_img, 'sepia': sepia_img,
             'convert': convert_img, 'brigthness': brightnesschange_img, 'edge': edge_img,
@@ -31,7 +31,7 @@ funfuntab = {'orginal': original_img, 'resolution': resolution, 'invert': invert
             'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
             'flip': flip_img, 'binaration': bin}
 
-my_functions = ('orginal', 'resolution', 'invert', 'grey', 'scale_up', 'gauss',
+my_functions = ('orginal', 'resolution','invert','color', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
                 'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
 
@@ -83,7 +83,12 @@ def Picture2(img, choice):
                 except ValueError:
                     l5.pack()
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
-
+            elif choice == 'color':
+                try:
+                    to_save = funfuntab[fun](img,a,a)
+                except ValueError:
+                    l5.pack()
+                    l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
             else:
                 to_save = funfuntab[fun](img)
 
@@ -191,12 +196,18 @@ def spin_set():
 
     elif 'rotate_angle' == spin_box.get():
         spin_layout_1x1('write angle from 0 to 360', 'set value : ')
-
+    elif 'color' == spin_box.get():
+        c1_r.pack()
+        c2_g.pack()
+        c3_b.pack()
     else:
         l3.pack_forget()
         l6.grid_forget()
         l7.grid_forget()
         l8.grid_forget()
+        c1_r.pack_forget()
+        c2_g.pack_forget()
+        c3_b.pack_forget()
         get_option.grid_forget()
         get_option2.grid_forget()
         frame2.pack_forget()
@@ -250,6 +261,21 @@ def make_label_long(name, text, anchor, font, fg, backgorund):
     # new_label2.grid(column=pos_x, row=pos_y)
     return new_label2
 
+
+def print_selection():
+    print('cos dziala')
+    if (var1.get() == 1) & (var2.get() == 0):
+        # l.config(text='I love Python ')
+        print('1')
+    elif (var1.get() == 0) & (var2.get() == 1):
+        # l.config(text='I love C++')
+        print('2')
+    elif (var1.get() == 0) & (var2.get() == 0):
+        # l.config(text='I do not anything')
+        print('3')
+    else:
+        print('4')
+        # l.config(text='I love both')
 
 
 #API START HERE
@@ -393,6 +419,19 @@ username = tkinter.StringVar()
 get_option = tkinter.Entry(frame2, textvariable=username,width=5)
 username2 = tkinter.StringVar()
 get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
+
+
+#checkbox
+var1 = tkinter.IntVar()
+var2 = tkinter.IntVar()
+var3 = tkinter.IntVar()
+c1_r = tkinter.Checkbutton(frame3, text='RED',variable=var1, onvalue=1, offvalue=0, command=print_selection)
+c2_g = tkinter.Checkbutton(frame3, text='GREEN',variable=var2, onvalue=1, offvalue=0, command=print_selection)
+c3_b = tkinter.Checkbutton(frame3, text='BLUE',variable=var3, onvalue=1, offvalue=0, command=print_selection)
+c1_r.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='red')
+c2_g.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='green')
+c3_b.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='blue')
+
 
 if __name__ == "__main__":
     root.mainloop()
