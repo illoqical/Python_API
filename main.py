@@ -22,6 +22,7 @@ tab = []
 funtab = []
 funtab = [grey_img, gauss_img, original_img]
 listbox_clear = True
+color_val = 'none'
 
 funfuntab = {'orginal': original_img, 'resolution': resolution,'color': coloro,'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
@@ -84,11 +85,11 @@ def Picture2(img, choice):
                     l5.pack()
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
             elif choice == 'color':
-                try:
-                    to_save = funfuntab[fun](img,a,a)
-                except ValueError:
+                if color_val == "none":
                     l5.pack()
-                    l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
+                    l5.config(text='Choose one option !', fg='red', font='Helvetica 18 bold')
+                else:
+                    to_save = funfuntab[fun](img, color_val)
             else:
                 to_save = funfuntab[fun](img)
 
@@ -264,18 +265,26 @@ def make_label_long(name, text, anchor, font, fg, backgorund):
 
 def print_selection():
     print('cos dziala')
-    if (var1.get() == 1) & (var2.get() == 0):
-        # l.config(text='I love Python ')
-        print('1')
-    elif (var1.get() == 0) & (var2.get() == 1):
-        # l.config(text='I love C++')
-        print('2')
-    elif (var1.get() == 0) & (var2.get() == 0):
-        # l.config(text='I do not anything')
-        print('3')
+    global color_val
+    if (var1.get() == 1) & (var2.get() == 0) & (var3.get() == 0):
+        color_val = 'red'
+        l5.pack_forget()
+    elif (var1.get() == 0) & (var2.get() == 1) & (var3.get() == 0):
+        color_val = 'green'
+        l5.pack_forget()
+
+    elif (var1.get() == 0) & (var2.get() == 0) & (var3.get() == 1):
+        color_val = 'blue'
+        l5.pack_forget()
+    elif (var1.get() == 0) & (var2.get() == 0) & (var3.get() == 0):
+        pass
     else:
-        print('4')
-        # l.config(text='I love both')
+        var1.set(0)
+        var2.set(0)
+        var3.set(0)
+        l5.pack()
+        l5.config(text='You must choose only one option !', fg='red', font='Helvetica 18 bold')
+
 
 
 #API START HERE

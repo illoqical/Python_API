@@ -265,10 +265,12 @@ def hist2(img):
     plt.show()
 
 
-def coloro(img):
+def coloro(img,flag):
     b1 = img[:, :, 0]
     b2 = img[:, :, 1]
     # b3=img2[:,:,2]
+
+
 
     b = img.copy()
     # set green and red channels to 0
@@ -276,19 +278,25 @@ def coloro(img):
     b[:, :, 2] = 0
 
     r = img.copy()
-    # set green and red channels to 0
+    # set green and blue channels to 0
     r[:, :, 0] = 0
     r[:, :, 1] = 0
 
+    g = img.copy()
+    # set red and blue channels to 0
+    g[:, :, 2] = 0
+    g[:, :, 0] = 0
+
     br = cv.add(b, r)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/BLUE.png', b)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/RED.png', r)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/BLUE_RED.png', br)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Grey_channel_1.png', b1)
-    cv.imshow('blue', b)
-    cv.imshow('red', r)
-    cv.imshow('bred', br)
-    cv.imshow('b1', b1)
-    cv.imshow('b2', b2)
-    cv.waitKey(0)
+    if flag == 'red':
+        cv.imshow('red', r)
+        return r
+    elif flag == "green":
+        cv.imshow('green', g)
+        return br
+    elif flag == 'blue':
+        cv.imshow('blue', b)
+        return b
+
+    # cv.waitKey(0)
 
