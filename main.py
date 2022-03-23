@@ -16,8 +16,6 @@ import cv2
 scale = 1
 filepath = ''
 tab = []
-funtab = []
-funtab = [grey_img, gauss_img, original_img]
 listbox_clear = True
 color_val = 'none'
 
