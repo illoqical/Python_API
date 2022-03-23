@@ -1,11 +1,8 @@
-'''
-Application for filtering images
+#Application for filtering images
+#Author: Kamil Sikora
+#Date: 03.03.2022
+#<kamil.qvr@gmail.com>
 
-
-Author: Kamil Sikora
-Date: 03.03.2022
-<kamil.qvr@gmail.com>
-'''
 
 
 from func import *
@@ -15,7 +12,7 @@ from tkinter import filedialog, Text
 import cv2
 
 
-#Values
+# Values
 scale = 1
 filepath = ''
 tab = []
@@ -24,79 +21,77 @@ funtab = [grey_img, gauss_img, original_img]
 listbox_clear = True
 color_val = 'none'
 
-funfuntab = {'orginal': original_img, 'resolution': resolution,'color': coloro,'invert': inverted_img,
+filter_list = {'orginal': original_img, 'resolution': resolution, 'color': coloro, 'invert': inverted_img,
             'grey': grey_img, 'scale_up': scaleup_img,
             'gauss': gauss_img, 'sepia': sepia_img,
-            'convert': convert_img, 'brigthness': brightnesschange_img, 'edge': edge_img,
+            'convert': convert_img, 'brightness': brightnesschange_img, 'edge': edge_img,
             'erosion': erosion_img, 'dilatation': dilatation_img,
             'skeletonization': skeletonization_img, 'rotate_angle': rotate_angle,
-            'flip': flip_img, 'binaration': bin}
+            'flip': flip_img, 'binarization': bin}
 
-my_functions = ('orginal', 'resolution','invert','color', 'grey', 'scale_up', 'gauss',
+my_functions = ('orginal', 'resolution', 'invert', 'color', 'grey', 'scale_up', 'gauss',
                 'sepia', 'convert', 'brigthness', 'edge', 'erosion',
-                'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binaration')
+                'dilatation', 'skeletonization', 'rotate_angle', 'flip', 'binarization')
 
 
-#Functions
-def Picture2(img, choice):
+# Functions
+def use_filter(img, choice):
     global to_save
-    for fun in funfuntab.keys():
+    for fun in filter_list.keys():
         if choice == fun:
             if choice == 'scale_up':
                 try:
                     scale_x = float(get_option.get())
                     scale_y = float(get_option2.get())
-
                     if scale_x < 0.1 or scale_y < 0.1 or scale_x > 2 or scale_y > 2:
                         l5.pack()
                         l5.config(text='wrong values')
                     else:
                         l3.pack_forget()
-                        to_save = funfuntab[fun](img, scale_x, scale_y)
+                        to_save = filter_list[fun](img, scale_x, scale_y)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
 
-            elif choice == 'brigthness':
-
+            elif choice == 'brightness':
                 try:
                     l5.pack_forget()
                     brightness = int(get_option.get())
-                    to_save = funfuntab[fun](img, brightness)
+                    to_save = filter_list[fun](img, brightness)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
+
             elif choice == 'rotate_angle':
                 try:
                     l5.pack_forget()
                     rotate_ang = int(get_option.get())
-                    to_save = funfuntab[fun](img, rotate_ang)
+                    to_save = filter_list[fun](img, rotate_ang)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Empty box !', fg='red', font='Helvetica 18 bold')
+
             elif choice == 'resolution':
                 try:
                     new_width = int(get_option.get())
                     new_height = int(get_option2.get())
-
                     l3.pack_forget()
-                    to_save = funfuntab[fun](img, new_width, new_height)
+                    to_save = filter_list[fun](img, new_width, new_height)
                 except ValueError:
                     l5.pack()
                     l5.config(text='Wrong value or box is empty !', fg='red', font='Helvetica 18 bold')
+
             elif choice == 'color':
                 if color_val == "none":
                     l5.pack()
                     l5.config(text='Choose one option !', fg='red', font='Helvetica 18 bold')
                 else:
-                    to_save = funfuntab[fun](img, color_val)
+                    to_save = filter_list[fun](img, color_val)
             else:
-                to_save = funfuntab[fun](img)
-
+                to_save = filter_list[fun](img)
 
 
 def add_path_list(add):
-    #button_add_picture_text.set('ADD PICTURE')
     text = 'Add file: ' + add
     global listbox_clear
     if listbox_clear:
@@ -150,14 +145,6 @@ def add_picture_path():
     button_add_picture_text.set('ADD PICTURE')
 
 
-def select_fun(img):
-    for fun in funtab:
-        if current_value.get() == fun:
-            fun(img[1])
-    # print(current_value.get())
-
-
-
 def spin_layout_1x1(text_val, text_1):
     l6.grid(columnspan=2, row=0, padx=10, pady=5)
     l6.config(text=text_val)
@@ -166,25 +153,21 @@ def spin_layout_1x1(text_val, text_1):
     get_option.grid(column=1, row=1, pady=5)
     frame2.pack()
 
+
 def spin_layout_2x2(text_val, text_1, text_2):
     l3.pack()
     frame2.pack(pady=5)
-
-    # l6.pack()
     l6.grid(columnspan=2, row=0, padx=10, pady=5)
     l6.config(text=text_val)
     l7.grid(column=0, row=1, pady=5)
     l7.config(text=text_1)
     l8.grid(column=0, row=2, pady=5)
     l8.config(text=text_2)
-
     get_option.grid(column=1, row=1, pady=5)
     get_option2.grid(column=1, row=2, pady=5)
 
 
 def spin_set():
-    #l3.config(text = spin_box.get())
-    #return spin_box.get()
     l5.pack_forget()
     if 'scale_up' == spin_box.get():
         spin_layout_2x2('write from 1 to 2', 'set value x: ', 'set value y: ')
@@ -214,14 +197,8 @@ def spin_set():
         frame2.pack_forget()
 
 
-def fileSelection(self):
-    selection = listbox.curselection()
-    # print(selection)
-
-
 def listbox_delete():
     listbox.delete(ANCHOR)
-    # print(tab)
 
 
 def main_prog():
@@ -229,18 +206,14 @@ def main_prog():
     # print('cc')
     # print(word1)
     if word1 == '':
-        #l5.place(x=300, y=600)
         l5.pack(pady=35)
         l5.config(text='SELECT FILE PTAH FROM LIST !', fg='red', font='Helvetica 18 bold')
     elif word1 == 'paths...':
         l5.pack(pady=35)
         l5.config(text='WRONG PATH !', fg='red', font='Helvetica 18 bold')
-        # print(l5.pack_info())
-
     else:
         l5.pack_forget()
-        kk = cv.imread(word1.replace("Add file: ", ""))
-        Picture2(kk, spin_box.get())
+        use_filter(cv.imread(word1.replace("Add file: ", "")), spin_box.get())
 
 
 def make_label_short(name, text, font, background):
@@ -249,8 +222,9 @@ def make_label_short(name, text, font, background):
                anchor='center',
                font=font,
                fg='white',background=background)
-    # new_label1.grid(column=pos_x, row=pos_y)
+
     return new_label1
+
 
 def make_label_long(name, text, anchor, font, fg, backgorund):
     new_label2 = tkinter.Label(name,
@@ -259,7 +233,7 @@ def make_label_long(name, text, anchor, font, fg, backgorund):
                font=font,
                fg=fg,
                background=backgorund)
-    # new_label2.grid(column=pos_x, row=pos_y)
+
     return new_label2
 
 
@@ -272,7 +246,6 @@ def checkbox_selection():
     elif (var1.get() == 0) & (var2.get() == 1) & (var3.get() == 0):
         color_val = 'green'
         l5.pack_forget()
-
     elif (var1.get() == 0) & (var2.get() == 0) & (var3.get() == 1):
         color_val = 'blue'
         l5.pack_forget()
@@ -286,15 +259,15 @@ def checkbox_selection():
         l5.config(text='You must choose only one option !', fg='red', font='Helvetica 18 bold')
 
 
-
-#API START HERE
-root = tkinter.Tk()  #creat window
-root.geometry('755x600') # window size
-root.resizable(width=False, height=False) #block resize
+# API START HERE
+root = tkinter.Tk()                         # create window
+root.geometry('755x600')                    # window size
+root.resizable(width=False, height=False)   # block resize
 root.config(background='#8E8BFF')
 root.title("VqApp")
 
-#frame --------------
+
+# frames
 frame1 = tkinter.Frame(root, heigh=400, bd=2)
 frame1.place(x=55, y=350)
 frame1.config(background='white')
@@ -304,27 +277,22 @@ frame3.place(x=305, y=40)
 frame3.config(background= '#8E8BFF')
 # frame3.config(background= 'white')
 
-#labels --------------
 
-#options
+# options
 text_standard = ('Raleway', 15)
-main_backgorund_color = '#8E8BFF'
+main_background_color = '#8E8BFF'
 
-#labels - root
-l = make_label_short(root,'Img Aplication',('Raleway',20, 'bold'),main_backgorund_color)
+# labels - root
+l = make_label_short(root, 'Img Aplication', ('Raleway', 20, 'bold'), main_background_color)
 l.pack()
-
-l2 = make_label_short(root,'list of added photos paths',('Raleway', 13),main_backgorund_color)
-l2.place(x=40,y=60)
-
-l4= make_label_short(frame3,'1. Add picture \n2. Select photo path'
+l2 = make_label_short(root, 'list of added photos paths', ('Raleway', 13), main_background_color)
+l2.place(x=40, y=60)
+l4 = make_label_short(frame3, '1. Add picture \n2. Select photo path'
         '\n3. Click to select option form list \n4. Click button "GO".',
-                     text_standard,main_backgorund_color )
+                      text_standard, main_background_color)
 l4.pack(pady=20, padx=60)
-
-l3 = make_label_short(frame3,'Set resize prop.',text_standard,main_backgorund_color)
-l5 = make_label_short(frame3,'',text_standard,main_backgorund_color)
-
+l3 = make_label_short(frame3,'Set resize prop.', text_standard, main_background_color)
+l5 = make_label_short(frame3,'', text_standard, main_background_color)
 
 
 current_value = tkinter.StringVar()
@@ -339,13 +307,11 @@ spin_box = tkinter.Spinbox(
     textvariable=current_value,
     wrap=False,
     command=spin_set,
-    #font=Font(family='Helvetica', size=36, weight='bold'))
     font='Helvetica 12')
-    #command=select_fun(filepath))
 spin_box.pack()
 
 
-#buttons
+# buttons
 button_add_picture_text = tkinter.StringVar()
 button_add_picture = tkinter.Button(root,
     textvariable=button_add_picture_text,
@@ -372,8 +338,6 @@ b2 = tkinter.Button(frame1,
     font=('Raleway', 12, 'bold'),
     fg='white',
     width=12, heigh=2)
-    # command=select_fun(tab))
-    # command=find_name)
 b2.pack(side=tkinter.BOTTOM, pady=5, padx=5)
 
 b3 = tkinter.Button(frame1,
@@ -401,11 +365,10 @@ b5 = tkinter.Button(frame3,
     fg='white',
     width=12, heigh=2,
     command=main_prog)
-#b4.place(x=300, y=260)
 b5.pack(pady=10)
 
 
-#listbox
+# listbox
 listbox = tkinter.Listbox(
     root,height=9,width = 30,
     selectmode='extended',fg='purple')
@@ -413,33 +376,33 @@ listbox.place(x=45, y=90)
 listbox.insert(0,'paths...')
 
 
-#frame
-frame2 = tkinter.Frame(frame3, bd=2, bg= '#7673F3')
-# frame2.config(background='red')
-
-#labels  - frame2
-l6 = make_label_short(frame2,'',text_standard,main_backgorund_color)
-l7 = make_label_short(frame2,'',text_standard,main_backgorund_color)
-l8 = make_label_short(frame2,'',text_standard,main_backgorund_color)
+# frame
+frame2 = tkinter.Frame(frame3, bd=2, bg='#7673F3')
 
 
-#entry
+# labels  - frame2
+l6 = make_label_short(frame2,'', text_standard, main_background_color)
+l7 = make_label_short(frame2,'', text_standard, main_background_color)
+l8 = make_label_short(frame2,'', text_standard, main_background_color)
+
+
+# entry
 username = tkinter.StringVar()
-get_option = tkinter.Entry(frame2, textvariable=username,width=5)
+get_option = tkinter.Entry(frame2, textvariable=username, width=5)
 username2 = tkinter.StringVar()
-get_option2 = tkinter.Entry(frame2, textvariable=username2,width=5)
+get_option2 = tkinter.Entry(frame2, textvariable=username2, width=5)
 
 
-#checkbox
+# checkbox
 var1 = tkinter.IntVar()
 var2 = tkinter.IntVar()
 var3 = tkinter.IntVar()
-c1_r = tkinter.Checkbutton(frame3, text='RED',variable=var1, onvalue=1, offvalue=0, command=checkbox_selection())
-c2_g = tkinter.Checkbutton(frame3, text='GREEN',variable=var2, onvalue=1, offvalue=0, command=checkbox_selection)
-c3_b = tkinter.Checkbutton(frame3, text='BLUE',variable=var3, onvalue=1, offvalue=0, command=checkbox_selection)
-c1_r.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='red')
-c2_g.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='green')
-c3_b.config(background=main_backgorund_color,font = ('Raleway', 12, 'bold'),fg='blue')
+c1_r = tkinter.Checkbutton(frame3, text='RED', variable=var1, onvalue=1, offvalue=0, command=checkbox_selection())
+c2_g = tkinter.Checkbutton(frame3, text='GREEN', variable=var2, onvalue=1, offvalue=0, command=checkbox_selection)
+c3_b = tkinter.Checkbutton(frame3, text='BLUE', variable=var3, onvalue=1, offvalue=0, command=checkbox_selection)
+c1_r.config(background=main_background_color, font = ('Raleway', 12, 'bold'), fg='red')
+c2_g.config(background=main_background_color, font = ('Raleway', 12, 'bold'), fg='green')
+c3_b.config(background=main_background_color, font = ('Raleway', 12, 'bold'), fg='blue')
 
 
 if __name__ == "__main__":
@@ -454,9 +417,9 @@ grey_img()              #MONOCHROMATYCZNE
 inverted_img()          #inwersja
 convert_img()
 brightnesschange_img()  #korekte poziomu jasnosci
-resolution()            #zmiana rodzielczosci
+resolution()            #zmiana rozdzielczosci
 hist2()                 #HISTOGRAM
-two_in_one()            #dodawanie dwoch obrazow, mnozenie,binaryzacja
+two_in_one()            #dodawanie dwoch obrazow, mnozenie, binaryzacja
 my_LUT()                #tablica LUT
 bin()                   #binaryzacja
 rotate_angle60()        #rotacja o 60 i odbicie lustrzane
@@ -470,5 +433,4 @@ dilation_img()          #dylatacji
 skeletonization_img()   #szkieletyzacja
 compression()
 andorxor()
-
 '''

@@ -1,23 +1,19 @@
-'''
-OpenCv functions
+# OpenCv functions
+# Author: Kamil Sikora
+# Date: 03.03.2022
+# <kamil.qvr@gmail.com>
 
-Author: Kamil Sikora
-Date: 03.03.2022
-<kamil.qvr@gmail.com>
-'''
 
 
 import cv2 as cv
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-#img = cv.imread(cv.samples.findFile("lenna.png"),)
 
 
 def original_img(img):
-    cv2.imshow('image',img)
+    cv2.imshow('image', img)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Orginalne.png', img)
     return img
 
 
@@ -26,7 +22,6 @@ def inverted_img(img):
     cv2.imshow('inverted', img_i)
     cv2.waitKey(0)
     return img_i
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Inverted.png', img_i)
 
 
 def grey_img(img):
@@ -34,24 +29,20 @@ def grey_img(img):
     cv2.imshow('grey', img_g)
     cv2.waitKey(0)
     return img_g
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Grey.png', img_g)
 
 
-def scaleup_img(img,sf_x,sf_y):
-    #img_su = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
+def scaleup_img(img, sf_x, sf_y):
     img_su = cv2.resize(img, None, fx=sf_x, fy= sf_y)
     cv2.imshow('scale up', img_su)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zwiększenie_skali.png', img)
     return img_su
 
 
-def scaledown_img(img,sf_x,sf_y):
+def scaledown_img(img, sf_x, sf_y):
     img_sd1 = cv2.resize(img, None, fx=float(sf_x), fy=float(sf_y))
     print('SCALE DOWN ON LINE')
     cv2.imshow('scale down', img_sd1)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmniejszenie_skali.png', img_sd1)
     return img_sd1
 
 
@@ -60,14 +51,12 @@ def gauss_img(img):
     cv2.imshow('gauss', img_g)
     cv2.waitKey(0)
     return img_g
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/gauss.png', img_g)
 
 
 def sepia_img(img):
     img_s = cv2.transform(img, np.matrix([[0.272, 0.534, 0.131], [0.349, 0.686, 0.168], [0.393, 0.769, 0.189]]))
     cv2.imshow('sepia', img_s)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Sepia.png', img_s)
     return img_s
 
 
@@ -75,7 +64,6 @@ def convert_img(img):
     img_c = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
     cv2.imshow('convert', img_c)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/HSV.png', img_c)
     return img_c
 
 
@@ -83,12 +71,10 @@ def rotate_img(img):
     img_r = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
     cv2.imshow('rotate', img_r)
     cv2.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Rotate_90.png', img_r)
     return img_r
 
 
-def brightnesschange_img(img,im_val):
-    #value = 30
+def brightnesschange_img(img, im_val):
     value = im_val
     img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     h, s, v = cv2.split(img_hsv)
@@ -103,7 +89,6 @@ def brightnesschange_img(img,im_val):
     #cv2.moveWindow('brightnesschange',200,200)
     cv2.waitKey(0)
     return img_bc
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Zmiana_jasnosci.png', img_bc)
 
 
 def edge_img(img):
@@ -111,7 +96,6 @@ def edge_img(img):
     cv2.imshow('edge detection', img_ed)
     cv2.waitKey(0)
     return img_ed
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Wykrycie_krawedzi.png', img_ed)
 
 
 def erosion_img(img):
@@ -121,7 +105,6 @@ def erosion_img(img):
     cv2.imshow('erosion', img_erosion)
     cv2.waitKey(0)
     return img_erosion
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Erozja.png', img_er)
 
 
 def dilatation_img(img):
@@ -131,7 +114,6 @@ def dilatation_img(img):
     cv2.imshow('dilation', img_dilation)
     cv2.waitKey(0)
     return img_dilation
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Dylatacja.png', img_d)
 
 
 def skeletonization_img(img):
@@ -147,11 +129,9 @@ def skeletonization_img(img):
         img_s = eroded.copy()
         if cv2.countNonZero(img_s) == 0:
             break
-
     cv2.imshow('skeletonization', skel)
     cv2.waitKey(0)
     return skel
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Szkieletyzacja.png', skel)
 
 
 def rotate_angle(img1, angle=30):
@@ -178,24 +158,20 @@ def resolution(img,width,height):
     # cv.waitKey(0)
 
 
-def two_in_one(img):
-    img1 = cv.imread('lenna.png')
-    img2 = cv.imread('pawian.jpg')
+def two_in_one(img2, img1):
     dsize = (512, 512)
     output = cv2.resize(img2, dsize, interpolation=cv2.INTER_AREA)
 
     dst2 = cv.multiply(img1,output)
     dst = cv.addWeighted(img1, 0.5, output, 0.5, 0)
-    cv.imshow('dodawanie', dst)
+    cv.imshow('sub.', dst)
     cv.waitKey(0)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Dodawanie_obrazow.png', dst)
-    cv.imshow('mnozenie', dst2)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Mnozenie_obrazow.png', dst2)
+    cv.imshow('multip.', dst2)
     cv.waitKey(0)
 
 
 def my_LUT(img):
-    cv.imshow('orginal',img)
+    cv.imshow('original', img)
     cv.waitKey(0)
     contrast_factor=2
     table = np.array([(i - 74) * contrast_factor + 74 for i in range(0, 256)]).clip(0, 255).astype('uint8')
@@ -216,7 +192,7 @@ def bin(img):
     # ret, thresh4 = cv.threshold(img, 127, 255, cv.THRESH_TOZERO)
     # ret, thresh5 = cv.threshold(img, 127, 255, cv.THRESH_TOZERO_INV)
     titles = ['Original Image', 'BINARY', 'BINARY_INV', 'TRUNC', 'TOZERO', 'TOZERO_INV']
-    cv.imshow('binaryzacja', thresh1)
+    cv.imshow('binarization', thresh1)
     # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/Binaryzacja.png', thresh1)
     cv.waitKey(0)
     return thresh1
@@ -239,9 +215,6 @@ def andorxor():
     bitwiseOR = cv2.bitwise_or(thresh1, thresh2)
     bitwiseXOR = cv2.bitwise_xor(thresh1, thresh2)
     cv.imshow('OR', bitwiseOR)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/OR.png', bitwiseOR)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/XOR.png', bitwiseXOR)
-    # cv2.imwrite('G:\Programing\Python 2.0\obrazy_wynikowe/AND.png', bitwiseAnd)
     cv.waitKey(0)
     cv.imshow('XOR', bitwiseXOR)
     cv.waitKey(0)
@@ -268,9 +241,6 @@ def hist2(img):
 def coloro(img,flag):
     b1 = img[:, :, 0]
     b2 = img[:, :, 1]
-    # b3=img2[:,:,2]
-
-
 
     b = img.copy()
     # set green and red channels to 0
@@ -297,6 +267,3 @@ def coloro(img,flag):
     elif flag == 'blue':
         cv.imshow('blue', b)
         return b
-
-    # cv.waitKey(0)
-
